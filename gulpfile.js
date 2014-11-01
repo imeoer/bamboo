@@ -4,14 +4,23 @@ var cp = require('child_process');
 var connect = require('gulp-connect');
 
 gulp.task('watch', function() {
-    gulp.watch(['src/*.go'], function(data) {
-        cp.exec('go build src/ink.go', function(err, stdout, stderr) {
+    gulp.watch(['src/ink/**/*.go'], function(data) {
+        cp.exec('go install ink', function(err, stdout, stderr) {
             if (stderr) {
                 console.log(stderr);
             } else {
-                cp.exec('pkill -9 ink', function(err, stdout, stderr) {
+                console.log("compiled");
+            }
+        });
+    });
+    gulp.watch(['src/test/test.go'], function(data) {
+        cp.exec('go build src/test/test.go', function(err, stdout, stderr) {
+            if (stderr) {
+                console.log(stderr);
+            } else {
+                cp.exec('pkill -9 test', function(err, stdout, stderr) {
                     // console.log('-----result-----');
-                    var proc = cp.exec('./ink');
+                    var proc = cp.exec('./test');
                     proc.stdout.on('data', function (data) {
                         console.log('out:\n' + data);
                     });
