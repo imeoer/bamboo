@@ -16,8 +16,8 @@ type Context struct {
     http.ResponseWriter
     Res http.ResponseWriter
     Req *http.Request
-    Params MatchMap
-    Data map[string]interface {}
+    Param MatchMap
+    Ware map[string]interface {}
     Next func()
 }
 
@@ -33,6 +33,7 @@ type Web struct {
 func (web *Web) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     matchMap, pattern := web.match(r.URL.Path)
     ctx := &Context{w, w, r, matchMap, nil, nil}
+    ctx.Ware = make(map[string]interface {})
     for _, preHandle := range web.middleware {
         keep := false
         ctx.Next = func() {
@@ -85,20 +86,6 @@ func (web *Web) addHandle(method string, pattern string, handle Handle) {
 
 /* public api */
 
-func App() (web Web) {
-    web = Web{}
-    web.route = make(map[string]Handle)
-    web.middleware = []Handle{}
-    web.patternAry = make([][]string, 0)
-    patternRegx, _ := regexp.Compile("([^/])*")
-    web.patternRegx = *patternRegx
-    return
-}
-
-func (web *Web) Listen(addr string) {
-    http.ListenAndServe(addr, web)
-}
-
 func (web *Web) Use(handle Handle) {
     web.middleware = append(web.middleware, handle)
 }
@@ -109,4 +96,18 @@ func (web *Web) Get(pattern string, handle Handle) {
 
 func (web *Web) Post(pattern string, handle Handle) {
     web.addHandle("POST", pattern, handle)
+}
+
+func (web *Web) Listen(addr string) {
+    http.ListenAndServe(addr, web)
+}
+
+func App() (web Web) {
+    web = Web{}
+    web.route = make(map[string]Handle)
+    web.middleware = []Handle{}
+    web.patternAry = make([][]string, 0)
+    patternRegx, _ := regexp.Compile("([^/])*")
+    web.patternRegx = *patternRegx
+    return
 }
