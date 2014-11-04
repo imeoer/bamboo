@@ -31,6 +31,34 @@ gulp.task('watch', function() {
             }
         });
     });
+    gulp.watch(['src/bamboo/**/*.go'], function(data) {
+        cp.exec('go install bamboo', function(err, stdout, stderr) {
+            if (stderr) {
+                console.log(stderr);
+            } else {
+                console.log("compiled");
+            }
+        });
+    });
+    gulp.watch(['src/main.go'], function(data) {
+        cp.exec('go build src/main.go', function(err, stdout, stderr) {
+            if (stderr) {
+                console.log(stderr);
+            } else {
+                console.log("compiled");
+                cp.exec('pkill -9 main', function(err, stdout, stderr) {
+                    // console.log('-----result-----');
+                    var proc = cp.exec('./main');
+                    proc.stdout.on('data', function (data) {
+                        console.log('out:\n' + data);
+                    });
+                    proc.stderr.on('data', function (data) {
+                        console.log('err:\n' + data);
+                    });
+                });
+            }
+        });
+    });
 });
 
 gulp.task('connect', function() {

@@ -17,7 +17,7 @@ type Context struct {
     Res http.ResponseWriter
     Req *http.Request
     Param MatchMap
-    Ware map[string]interface {}
+    Ware map[string]interface{}
     Next func()
 }
 
@@ -32,8 +32,7 @@ type Web struct {
 
 func (web *Web) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     matchMap, pattern := web.match(r.URL.Path)
-    ctx := &Context{w, w, r, matchMap, nil, nil}
-    ctx.Ware = make(map[string]interface {})
+    ctx := &Context{w, w, r, matchMap, make(map[string]interface{}), nil}
     for _, preHandle := range web.middleware {
         keep := false
         ctx.Next = func() {

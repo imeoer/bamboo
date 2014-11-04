@@ -3,3 +3,7 @@ node_modules
 pkg
 public
 test
+main
+github.com
+bitbucket.org
+DB

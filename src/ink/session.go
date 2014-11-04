@@ -6,59 +6,64 @@ import (
     "crypto/rand"
 )
 
-type SessionItem map[string]interface{}
-
-type DefaultSessionStore map[string]SessionItem
+var sessionStore SessionStore
 
 type SessionStore interface {
     Create(sessionId string)
-    Get(sessionId string) SessionItem
+    Get(sessionId string) map[string]interface{}
 }
 
-var sessionStore SessionStore
+type defaultSessionStore map[string]map[string]interface{}
 
-func (defaultSessionStore *DefaultSessionStore) Create(sessionId string) {
-    (*defaultSessionStore)[sessionId] = make(SessionItem)
+func (store *defaultSessionStore) Create(sessionId string) {
+    (*store)[sessionId] = make(map[string]interface{})
 }
 
-func (defaultSessionStore *DefaultSessionStore) Get(sessionId string) SessionItem {
-    item, ok := (*defaultSessionStore)[sessionId]
+func (store *defaultSessionStore) Get(sessionId string) map[string]interface{} {
+    item, ok := (*store)[sessionId]
     if ok {
         return item
     }
     return nil
 }
 
-func (ctx *Context) GetSession(key string) interface{} {
-    cookie, err := ctx.Req.Cookie("session")
-    if err == nil {
-        sessionId := cookie.Value
-        sessionItem := sessionStore.Get(sessionId)
-        if sessionItem != nil {
-            value, ok := sessionItem[key]
-            if ok {
-                return value
+/* public method */
+
+func (ctx *Context) SessionGet(key string) interface{} {
+    if sessionStore != nil {
+        fmt.Println(*sessionStore.(*defaultSessionStore))
+        cookie, err := ctx.Req.Cookie("session")
+        if err == nil {
+            sessionId := cookie.Value
+            sessionItem := sessionStore.Get(sessionId)
+            if sessionItem != nil {
+                value, ok := sessionItem[key]
+                if ok {
+                    return value
+                }
             }
         }
     }
     return nil
 }
 
-func (ctx *Context) SetSession(key string, value interface{}) {
+func (ctx *Context) SessionSet(key string, value interface{}) {
     cookie, err := ctx.Req.Cookie("session")
     if err == nil {
         sessionId := cookie.Value
-        sessionItem := sessionStore.Get(sessionId)
-        if sessionItem != nil {
-            sessionItem[key] = value
+        if sessionStore != nil {
+            sessionItem := sessionStore.Get(sessionId)
+            if sessionItem != nil {
+                sessionItem[key] = value
+            }
         }
     }
 }
 
 func Session(newSessionStore SessionStore) func(ctx *Context) {
     if newSessionStore == nil {
-        defaultSessionStore := make(DefaultSessionStore)
-        sessionStore = SessionStore(&defaultSessionStore)
+        store := make(defaultSessionStore)
+        sessionStore = SessionStore(&store)
     } else {
         sessionStore = newSessionStore
     }
