@@ -40,8 +40,8 @@ gulp.task('watch', function() {
             }
         });
     });
-    gulp.watch(['src/main.go'], function(data) {
-        cp.exec('go build src/main.go', function(err, stdout, stderr) {
+    gulp.watch(['src/*.go'], function(data) {
+        cp.exec('go build src/*.go', function(err, stdout, stderr) {
             if (stderr) {
                 console.log(stderr);
             } else {

@@ -12,12 +12,15 @@ type MatchMap map[string]string
 
 type Handle func(ctx *Context)
 
+type A interface{}
+
 type Context struct {
     http.ResponseWriter
     Res http.ResponseWriter
     Req *http.Request
     Param MatchMap
     Ware map[string]interface{}
+    A
     Next func()
 }
 
