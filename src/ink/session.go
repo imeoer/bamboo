@@ -6,6 +6,8 @@ import (
     "crypto/rand"
 )
 
+// session store interface
+
 var sessionStore SessionStore
 
 type SessionStore interface {
@@ -27,14 +29,23 @@ func (store *defaultSessionStore) Get(sessionId string) map[string]interface{} {
     return nil
 }
 
+// cookie manage interface
+var cookieManage *CookieManage
+
+type CookieManage struct {
+    Set func(ctx *Context, value string)
+    Get func(ctx *Context) string
+}
+
+// default session name
+const sessionName = "session"
+
 /* public method */
 
 func (ctx *Context) SessionGet(key string) interface{} {
     if sessionStore != nil {
-        fmt.Println(*sessionStore.(*defaultSessionStore))
-        cookie, err := ctx.Req.Cookie("session")
-        if err == nil {
-            sessionId := cookie.Value
+        sessionId := cookieManage.Get(ctx)
+        if len(sessionId) != 0 {
             sessionItem := sessionStore.Get(sessionId)
             if sessionItem != nil {
                 value, ok := sessionItem[key]
@@ -48,9 +59,8 @@ func (ctx *Context) SessionGet(key string) interface{} {
 }
 
 func (ctx *Context) SessionSet(key string, value interface{}) {
-    cookie, err := ctx.Req.Cookie("session")
-    if err == nil {
-        sessionId := cookie.Value
+    sessionId := cookieManage.Get(ctx)
+    if len(sessionId) != 0 {
         if sessionStore != nil {
             sessionItem := sessionStore.Get(sessionId)
             if sessionItem != nil {
@@ -60,12 +70,30 @@ func (ctx *Context) SessionSet(key string, value interface{}) {
     }
 }
 
-func Session(newSessionStore SessionStore) func(ctx *Context) {
-    if newSessionStore == nil {
-        store := make(defaultSessionStore)
-        sessionStore = SessionStore(&store)
+func Session(store SessionStore, cm *CookieManage) func(ctx *Context) {
+    if store == nil {
+        newStore := make(defaultSessionStore)
+        sessionStore = SessionStore(&newStore)
     } else {
-        sessionStore = newSessionStore
+        sessionStore = store
+    }
+    if cm == nil {
+        cookieManage = new(CookieManage)
+        cookieManage.Get = func(ctx *Context) string {
+            cookie, err := ctx.Req.Cookie(sessionName)
+            if err != nil {
+                return ""
+            }
+            return cookie.Value
+        }
+        cookieManage.Set = func(ctx *Context, value string) {
+            http.SetCookie(ctx.Res, &http.Cookie {
+                Name: sessionName,
+                Value: value,
+            })
+        }
+    } else {
+        cookieManage = cm
     }
     genSessionId := func() string {
         b := make([]byte, 16)
@@ -75,16 +103,14 @@ func Session(newSessionStore SessionStore) func(ctx *Context) {
     createSession := func(ctx *Context) string {
         sessionId := genSessionId()
         sessionStore.Create(sessionId)
-        http.SetCookie(ctx.Res, &http.Cookie {
-            Name: "session",
-            Value: sessionId,
-        })
+        cookieManage.Set(ctx, sessionId)
         return sessionId
     }
     return func(ctx *Context) {
-        cookie, err := ctx.Req.Cookie("session")
-        if err == nil {
-            sessionId := cookie.Value
+        sessionId := cookieManage.Get(ctx)
+        fmt.Println("TOKEN")
+        fmt.Println(sessionId)
+        if len(sessionId) != 0 {
             sessionItem := sessionStore.Get(sessionId)
             if sessionItem == nil {
                 createSession(ctx)
@@ -92,6 +118,5 @@ func Session(newSessionStore SessionStore) func(ctx *Context) {
         } else {
             createSession(ctx)
         }
-        ctx.Next()
     }
 }

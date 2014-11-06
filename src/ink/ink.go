@@ -12,21 +12,17 @@ type MatchMap map[string]string
 
 type Handle func(ctx *Context)
 
-type A interface{}
-
 type Context struct {
     http.ResponseWriter
     Res http.ResponseWriter
     Req *http.Request
     Param MatchMap
     Ware map[string]interface{}
-    A
-    Next func()
+    Stop func()
 }
 
 type Web struct {
-    route map[string]Handle
-    middleware []Handle
+    route map[string][]Handle
     patternAry [][]string
     patternRegx regexp.Regexp
 }
@@ -36,19 +32,19 @@ type Web struct {
 func (web *Web) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     matchMap, pattern := web.match(r.URL.Path)
     ctx := &Context{w, w, r, matchMap, make(map[string]interface{}), nil}
-    for _, preHandle := range web.middleware {
-        keep := false
-        ctx.Next = func() {
-            keep = true
-        }
-        preHandle(ctx)
-        if !keep {
-            return
-        }
-    }
-    handle, ok := web.route[r.Method + ":" + pattern]
+    // handle * route
+    handleAry, ok := web.route[r.Method + ":" + pattern]
     if ok {
-        handle(ctx)
+        for _, handle := range handleAry {
+            keep := false
+            ctx.Stop = func() {
+                keep = false
+            }
+            handle(ctx)
+            if !keep {
+                return
+            }
+        }
     } else {
         http.NotFound(w, r)
     }
@@ -82,15 +78,16 @@ func (web *Web) match(path string) (matchMap MatchMap, pattern string) {
 }
 
 func (web *Web) addHandle(method string, pattern string, handle Handle) {
-    web.route[method + ":" + pattern] = handle
+    path := method + ":" + pattern
+    _, ok := web.route[path]
+    if !ok {
+        web.route[path] = make([]Handle, 0)
+    }
+    web.route[path] = append(web.route[path], handle)
     web.patternAry = append(web.patternAry, strings.Split(pattern, "/"))
 }
 
 /* public api */
-
-func (web *Web) Use(handle Handle) {
-    web.middleware = append(web.middleware, handle)
-}
 
 func (web *Web) Get(pattern string, handle Handle) {
     web.addHandle("GET", pattern, handle)
@@ -106,8 +103,7 @@ func (web *Web) Listen(addr string) {
 
 func App() (web Web) {
     web = Web{}
-    web.route = make(map[string]Handle)
-    web.middleware = []Handle{}
+    web.route = make(map[string][]Handle)
     web.patternAry = make([][]string, 0)
     patternRegx, _ := regexp.Compile("([^/])*")
     web.patternRegx = *patternRegx

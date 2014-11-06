@@ -19,9 +19,7 @@ func preHandle(ctx *ink.Context) {
         fmt.Println(err)
     }
     ctx.Ware["data"] = data
-    fmt.Println(data)
     ctx.Header().Set("Content-Type", "application/json;charset=UTF-8")
-    ctx.Next()
 }
 
 func returnRet(ctx *ink.Context, status bool, result interface{}) {
@@ -68,6 +66,7 @@ func main() {
     // middleware
     app.Use(ink.Static("public"))
     app.Use(preHandle)
+    ink.Token()
     // route handler
     app.Post("/login", login)
     app.Post("/register", register)
