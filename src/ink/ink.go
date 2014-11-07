@@ -4,6 +4,8 @@ import (
     "net/http"
     "strings"
     "regexp"
+    "fmt"
+    "crypto/rand"
 )
 
 /* data structure */
@@ -27,16 +29,30 @@ type Web struct {
     patternRegx regexp.Regexp
 }
 
+func GUID() string {
+    b := make([]byte, 16)
+    rand.Read(b)
+    return fmt.Sprintf("%X-%X-%X-%X-%X", b[0:4], b[4:6], b[6:8], b[8:10], b[10:])
+}
+
 /* private method */
 
 func (web *Web) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     matchMap, pattern := web.match(r.URL.Path)
     ctx := &Context{w, w, r, matchMap, make(map[string]interface{}), nil}
-    // handle * route
-    handleAry, ok := web.route[r.Method + ":" + pattern]
-    if ok {
-        for _, handle := range handleAry {
-            keep := false
+    fmt.Println(r.Method + ":" + pattern)
+    allHandle := make([]Handle, 0)
+    handleAry1, ok1 := web.route[r.Method + ":*"]
+    if ok1 {
+        allHandle = append(allHandle, handleAry1...)
+    }
+    handleAry2, ok2 := web.route[r.Method + ":" + pattern]
+    if ok2 {
+        allHandle = append(allHandle, handleAry2...)
+    }
+    if len(allHandle) != 0 {
+        for _, handle := range allHandle {
+            keep := true
             ctx.Stop = func() {
                 keep = false
             }
@@ -79,12 +95,12 @@ func (web *Web) match(path string) (matchMap MatchMap, pattern string) {
 
 func (web *Web) addHandle(method string, pattern string, handle Handle) {
     path := method + ":" + pattern
-    _, ok := web.route[path]
-    if !ok {
+    if _, ok := web.route[path]; !ok {
         web.route[path] = make([]Handle, 0)
     }
     web.route[path] = append(web.route[path], handle)
     web.patternAry = append(web.patternAry, strings.Split(pattern, "/"))
+    fmt.Println(web.route)
 }
 
 /* public api */

@@ -3,7 +3,6 @@ package ink
 import (
     "fmt"
     "net/http"
-    "crypto/rand"
 )
 
 // session store interface
@@ -95,27 +94,22 @@ func Session(store SessionStore, cm *CookieManage) func(ctx *Context) {
     } else {
         cookieManage = cm
     }
-    genSessionId := func() string {
-        b := make([]byte, 16)
-        rand.Read(b)
-        return fmt.Sprintf("%X-%X-%X-%X-%X", b[0:4], b[4:6], b[6:8], b[8:10], b[10:])
-    }
     createSession := func(ctx *Context) string {
-        sessionId := genSessionId()
+        sessionId := GUID()
         sessionStore.Create(sessionId)
         cookieManage.Set(ctx, sessionId)
         return sessionId
     }
     return func(ctx *Context) {
         sessionId := cookieManage.Get(ctx)
-        fmt.Println("TOKEN")
-        fmt.Println(sessionId)
         if len(sessionId) != 0 {
+            fmt.Println("HAVE TOKEN")
             sessionItem := sessionStore.Get(sessionId)
             if sessionItem == nil {
                 createSession(ctx)
             }
         } else {
+            fmt.Println("NO TOKEN")
             createSession(ctx)
         }
     }

@@ -42,7 +42,17 @@ func login(ctx *ink.Context) {
     mail := getParam(ctx, "mail")
     pass := getParam(ctx, "pass")
     ok := bamboo.UserLogin(mail, pass)
-    returnRet(ctx, ok, nil)
+    if ok {
+        token := ctx.TokenNew()
+        returnRet(ctx, true, token)
+        return
+    }
+    returnRet(ctx, false, nil)
+}
+
+func test(ctx *ink.Context) {
+    ctx.TokenSet("a", "b")
+    fmt.Println(ctx.TokenGet("a"))
 }
 
 func register(ctx *ink.Context) {
@@ -64,11 +74,11 @@ func register(ctx *ink.Context) {
 func main() {
     app := ink.App()
     // middleware
-    app.Use(ink.Static("public"))
-    app.Use(preHandle)
-    ink.Token()
+    app.Get("*", ink.Static("public"))
+    app.Post("*", preHandle)
     // route handler
     app.Post("/login", login)
+    app.Post("/test", test)
     app.Post("/register", register)
     // start server
     app.Listen("0.0.0.0:9090")
