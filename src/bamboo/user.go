@@ -13,7 +13,7 @@ func UserExist(mail string) bool {
 
 // rgister new user
 func UserRegister(mail string, pass string) bool {
-    ret := insert(user, mapData{
+    ret := insert(user, MapData{
         "mail": mail,
         "pass": pass,
     })
@@ -24,13 +24,13 @@ func UserRegister(mail string, pass string) bool {
 }
 
 // user login
-func UserLogin(mail string, pass string) bool {
+func UserLogin(mail string, pass string) int {
     ret := query(user, `{"n": [
         {"eq": "` + mail + `", "in": ["mail"]},
         {"eq": "` + pass + `", "in": ["pass"]}
     ]}`)
-    if len(ret) == 0 {
-        return false
+    for id := range ret {
+        return id
     }
-    return true
+    return 0
 }

@@ -7,23 +7,32 @@ import (
     "fmt"
 )
 
-type mapData map[string]interface{}
-
 /* helper method */
 
 func preHandle(ctx *ink.Context) {
+    ctx.Header().Set("Content-Type", "application/json;charset=UTF-8")
+    // auth check
+    path := ctx.Req.URL.Path
+    if path != "/login" && path != "/register" {
+        userId := ctx.TokenGet("id")
+        if userId == nil {
+            returnRet(ctx, false, "auth failed")
+            ctx.Stop()
+            return
+        }
+    }
+    // parse request json data
     decoder := json.NewDecoder(ctx.Req.Body)
-    data := make(mapData)
+    data := make(bamboo.MapData)
     err := decoder.Decode(&data)
     if err != nil {
         fmt.Println(err)
     }
     ctx.Ware["data"] = data
-    ctx.Header().Set("Content-Type", "application/json;charset=UTF-8")
 }
 
 func returnRet(ctx *ink.Context, status bool, result interface{}) {
-    data := mapData{
+    data := bamboo.MapData{
         "status": status,
         "result": result,
     }
@@ -32,7 +41,7 @@ func returnRet(ctx *ink.Context, status bool, result interface{}) {
 }
 
 func getParam(ctx *ink.Context, key string) string {
-    data := ctx.Ware["data"].(mapData)
+    data := ctx.Ware["data"].(bamboo.MapData)
     return data[key].(string)
 }
 
@@ -41,18 +50,14 @@ func getParam(ctx *ink.Context, key string) string {
 func login(ctx *ink.Context) {
     mail := getParam(ctx, "mail")
     pass := getParam(ctx, "pass")
-    ok := bamboo.UserLogin(mail, pass)
-    if ok {
+    userId := bamboo.UserLogin(mail, pass)
+    if userId != 0 {
         token := ctx.TokenNew()
+        ctx.TokenSet("id", userId)
         returnRet(ctx, true, token)
         return
     }
     returnRet(ctx, false, nil)
-}
-
-func test(ctx *ink.Context) {
-    ctx.TokenSet("a", "b")
-    fmt.Println(ctx.TokenGet("a"))
 }
 
 func register(ctx *ink.Context) {
@@ -77,8 +82,10 @@ func main() {
     app.Get("*", ink.Static("public"))
     app.Post("*", preHandle)
     // route handler
+    app.Post("/test", func (ctx *ink.Context) {
+        returnRet(ctx, true, nil)
+    })
     app.Post("/login", login)
-    app.Post("/test", test)
     app.Post("/register", register)
     // start server
     app.Listen("0.0.0.0:9090")

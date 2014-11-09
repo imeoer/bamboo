@@ -5,7 +5,7 @@ import (
     "github.com/HouzuoGuo/tiedot/db"
 )
 
-type mapData map[string]interface{}
+type MapData map[string]interface{}
 
 var inkdb *db.DB
 
@@ -18,16 +18,14 @@ func init() {
     inkdb, _ = db.OpenDB("DB")
     // init collection
     user = initCol("user", []string{"mail", "pass"})
-    article = initCol("article", []string{"title", "content"})
+    article = initCol("article", []string{"user", "title", "content"})
 }
 
 // create collection and field index
 func initCol(name string, fields []string) (col *db.Col) {
     inkdb.Create(name)
     col = inkdb.Use(name)
-    for _, field := range fields {
-        col.Index([]string{field})
-    }
+    col.Index(fields)
     return
 }
 
@@ -41,7 +39,7 @@ func query(col *db.Col, qstr string) (ret map[int]struct{}) {
 }
 
 // database insert method
-func insert(col *db.Col, data mapData) int {
+func insert(col *db.Col, data MapData) int {
     count, _ := col.Insert(data)
     return count
 }

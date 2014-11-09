@@ -40,7 +40,6 @@ func GUID() string {
 func (web *Web) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     matchMap, pattern := web.match(r.URL.Path)
     ctx := &Context{w, w, r, matchMap, make(map[string]interface{}), nil}
-    fmt.Println(r.Method + ":" + pattern)
     allHandle := make([]Handle, 0)
     handleAry1, ok1 := web.route[r.Method + ":*"]
     if ok1 {
@@ -100,7 +99,6 @@ func (web *Web) addHandle(method string, pattern string, handle Handle) {
     }
     web.route[path] = append(web.route[path], handle)
     web.patternAry = append(web.patternAry, strings.Split(pattern, "/"))
-    fmt.Println(web.route)
 }
 
 /* public api */

@@ -23,7 +23,8 @@ func (ctx *Context) TokenGet(key string) interface{} {
 
 func (ctx *Context) TokenSet(key string, value interface{}) {
     tokenId := ctx.Req.Header.Get("Token")
-    if token, ok := tokenMap[tokenId]; ok {
+    token, ok := tokenMap[tokenId]
+    if ok {
         token.data[key] = value
     }
 }
@@ -36,5 +37,6 @@ func (ctx *Context) TokenNew() string {
     token := new(typeToken)
     token.data = make(map[string]interface{})
     tokenMap[tokenId] = *token
+    ctx.Req.Header.Set("Token", tokenId)
     return tokenId
 }
