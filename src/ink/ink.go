@@ -111,6 +111,10 @@ func (web *Web) Post(pattern string, handle Handle) {
     web.addHandle("POST", pattern, handle)
 }
 
+func (web *Web) Options(pattern string, handle Handle) {
+    web.addHandle("OPTIONS", pattern, handle)
+}
+
 func (web *Web) Listen(addr string) {
     http.ListenAndServe(addr, web)
 }

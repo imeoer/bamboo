@@ -5,12 +5,11 @@ import (
     "encoding/json"
     "ink"
     "fmt"
+    // "io/ioutil"
 )
 
 /* helper method */
-
 func preHandle(ctx *ink.Context) {
-    ctx.Header().Set("Content-Type", "application/json;charset=UTF-8")
     // auth check
     path := ctx.Req.URL.Path
     if path != "/login" && path != "/register" {
@@ -57,14 +56,14 @@ func login(ctx *ink.Context) {
         returnRet(ctx, true, token)
         return
     }
-    returnRet(ctx, false, nil)
+    returnRet(ctx, false, "账户或密码错误")
 }
 
 func register(ctx *ink.Context) {
     mail := getParam(ctx, "mail")
     pass := getParam(ctx, "pass")
     if bamboo.UserExist(mail) {
-        returnRet(ctx, false, "exist")
+        returnRet(ctx, false, "账户已被使用")
         return
     }
     ok := bamboo.UserRegister(mail, pass)
@@ -72,14 +71,16 @@ func register(ctx *ink.Context) {
         returnRet(ctx, true, nil)
         return
     }
-    returnRet(ctx, false, "failed")
+    returnRet(ctx, false, "注册失败，内部错误")
     return
 }
 
 func main() {
     app := ink.App()
     // middleware
-    app.Get("*", ink.Static("public"))
+    // app.Get("*", ink.Static("public"))
+    app.Options("*", ink.Cors)
+    app.Post("*", ink.Cors)
     app.Post("*", preHandle)
     // route handler
     app.Post("/test", func (ctx *ink.Context) {
