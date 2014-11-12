@@ -12,7 +12,7 @@ import (
 func preHandle(ctx *ink.Context) {
     // auth check
     path := ctx.Req.URL.Path
-    if path != "/login" && path != "/register" {
+    if path != "/user/login" && path != "/user/register" {
         userId := ctx.TokenGet("id")
         if userId == nil {
             returnRet(ctx, false, "auth failed")
@@ -39,19 +39,20 @@ func returnRet(ctx *ink.Context, status bool, result interface{}) {
     ctx.Write(ret)
 }
 
-func getParam(ctx *ink.Context, key string) string {
+func getParam(ctx *ink.Context, key string) interface{} {
     data := ctx.Ware["data"].(bamboo.MapData)
-    return data[key].(string)
+    return data[key]
 }
 
 /* logic handler */
 
 func login(ctx *ink.Context) {
-    mail := getParam(ctx, "mail")
-    pass := getParam(ctx, "pass")
-    userId := bamboo.UserLogin(mail, pass)
-    if userId != 0 {
+    mail := getParam(ctx, "mail").(string)
+    pass := getParam(ctx, "pass").(string)
+    user := bamboo.UserLogin(mail, pass)
+    if user != nil {
         token := ctx.TokenNew()
+        userId := user.Id
         ctx.TokenSet("id", userId)
         returnRet(ctx, true, token)
         return
@@ -60,8 +61,8 @@ func login(ctx *ink.Context) {
 }
 
 func register(ctx *ink.Context) {
-    mail := getParam(ctx, "mail")
-    pass := getParam(ctx, "pass")
+    mail := getParam(ctx, "mail").(string)
+    pass := getParam(ctx, "pass").(string)
     if bamboo.UserExist(mail) {
         returnRet(ctx, false, "账户已被使用")
         return
@@ -75,6 +76,25 @@ func register(ctx *ink.Context) {
     return
 }
 
+// func articleUpdate(ctx *ink.Context) {
+//     userId := ctx.TokenGet("id").(int)
+//     articleId := int(getParam(ctx, "id").(float64))
+//     articleTitle := getParam(ctx, "title").(string)
+//     articleContent := getParam(ctx, "content").(string)
+//     ret := bamboo.ArticleUpdate(userId, articleId, articleTitle, articleContent)
+//     if ret != 0 {
+//         returnRet(ctx, true, nil)
+//     } else {
+//         returnRet(ctx, false, "文章更新失败，内部错误")
+//     }
+// }
+//
+// func articleList(ctx *ink.Context) {
+//     userId := ctx.TokenGet("id").(int)
+//     ret := bamboo.ArticleList(userId)
+//     returnRet(ctx, true, ret)
+// }
+
 func main() {
     app := ink.App()
     // middleware
@@ -83,11 +103,10 @@ func main() {
     app.Post("*", ink.Cors)
     app.Post("*", preHandle)
     // route handler
-    app.Post("/test", func (ctx *ink.Context) {
-        returnRet(ctx, true, nil)
-    })
-    app.Post("/login", login)
-    app.Post("/register", register)
+    app.Post("/user/login", login)
+    app.Post("/user/register", register)
+    // app.Post("/article/update", articleUpdate)
+    // app.Post("/article/list", articleList)
     // start server
     app.Listen("0.0.0.0:9090")
 }
