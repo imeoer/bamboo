@@ -18,16 +18,25 @@ func Login(ctx *ink.Context) {
 }
 
 func Register(ctx *ink.Context) {
+    defer func() {
+        if err := recover(); err != nil {
+            returnRet(ctx, false, err)
+        }
+    }()
     mail := getParam(ctx, "mail").(string)
     pass := getParam(ctx, "pass").(string)
-    if userExist(mail) {
-        returnRet(ctx, false, "账户已被使用")
-        return
+    if !validType("mail", mail) {
+        panic("邮箱格式不正确")
     }
-    ok := userRegister(mail, pass)
-    if ok {
+    if passLen := len(pass); passLen < 6 || passLen > 16 {
+        panic("密码位数在6-16之间")
+    }
+    if userExist(mail) {
+        panic("账户已被使用")
+    }
+    if userRegister(mail, pass) {
         returnRet(ctx, true, nil)
         return
     }
-    returnRet(ctx, false, "注册失败，内部错误")
+    panic("注册失败，内部错误")
 }

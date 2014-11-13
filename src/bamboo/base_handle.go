@@ -1,9 +1,10 @@
 package bamboo
 
 import (
-    "encoding/json"
     "ink"
-    "fmt"
+    "regexp"
+    "encoding/json"
+    "net/mail"
 )
 
 /* helper method */
@@ -20,16 +21,18 @@ func PreHandle(ctx *ink.Context) {
     }
     // parse request json data
     decoder := json.NewDecoder(ctx.Req.Body)
-    data := make(MapData)
+    data := make(Map)
     err := decoder.Decode(&data)
     if err != nil {
-        fmt.Println(err)
+        returnRet(ctx, false, "json parse error")
+        ctx.Stop()
+        return
     }
     ctx.Ware["data"] = data
 }
 
 func returnRet(ctx *ink.Context, status bool, result interface{}) {
-    data := MapData{
+    data := Map{
         "status": status,
         "result": result,
     }
@@ -38,6 +41,24 @@ func returnRet(ctx *ink.Context, status bool, result interface{}) {
 }
 
 func getParam(ctx *ink.Context, key string) interface{} {
-    data := ctx.Ware["data"].(MapData)
+    data := ctx.Ware["data"].(Map)
     return data[key]
+}
+
+func validate(regex string, value string) bool {
+    ok, err := regexp.MatchString(regex, value)
+    if err == nil && ok {
+        return true
+    }
+    return false
+}
+
+func validType(method string, value string) bool {
+    if method == "mail" {
+        mail, err := mail.ParseAddress(value)
+        if err == nil && mail.Name == "" {
+            return true
+        }
+    }
+    return false
 }

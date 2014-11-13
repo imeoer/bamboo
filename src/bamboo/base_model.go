@@ -4,7 +4,7 @@ import (
     "gopkg.in/mgo.v2"
 )
 
-type MapData map[string]interface{}
+type Map map[string]interface{}
 
 var db struct {
     user *mgo.Collection
