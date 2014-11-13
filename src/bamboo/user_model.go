@@ -12,7 +12,7 @@ type User struct {
 }
 
 // check user if exist
-func UserExist(mail string) bool {
+func userExist(mail string) bool {
     err := db.user.Find(bson.M{"mail": mail}).One(&User{})
     if err == nil {
         return false
@@ -21,7 +21,7 @@ func UserExist(mail string) bool {
 }
 
 // rgister new user
-func UserRegister(mail string, pass string) bool {
+func userRegister(mail string, pass string) bool {
     err := db.user.Insert(&User{"", mail, pass})
     if err == nil {
         return true
@@ -30,11 +30,11 @@ func UserRegister(mail string, pass string) bool {
 }
 
 // user login
-func UserLogin(mail string, pass string) *User {
+func userLogin(mail string, pass string) string {
     ret := &User{}
     err := db.user.Find(bson.M{"mail": mail, "pass": pass}).One(ret)
     if err == nil {
-        return ret
+        return ret.Id.Hex()
     }
-    return nil
+    return ""
 }
