@@ -3,14 +3,14 @@ package main
 import (
     "ink"
     "bamboo"
-    "fmt"
+    // "fmt"
 
 )
 
 func main() {
     app := ink.App()
     // middleware
-    // app.Get("*", ink.Static("public"))
+    app.Get("*", ink.Static("public"))
     app.Options("*", ink.Cors)
     app.Post("*", ink.Cors)
     app.Post("*", bamboo.PreHandle)

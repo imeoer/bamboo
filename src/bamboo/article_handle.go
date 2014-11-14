@@ -2,8 +2,10 @@ package bamboo
 
 import (
     "ink"
-    "fmt"
+    // "fmt"
+    "os"
     "io/ioutil"
+    "path/filepath"
 )
 
 func ArticleUpdate(ctx *ink.Context) {
@@ -37,21 +39,31 @@ func ArticleGet(ctx *ink.Context) {
 }
 
 func ArticleUpload(ctx *ink.Context) {
-    file, _, err := ctx.Req.FormFile("file")
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
+    file, handler, err := ctx.Req.FormFile("file")
     defer func() {
-        if err := file.Close(); err != nil {
-            fmt.Println(err)
-            return
+        if err := recover(); err != nil {
+            returnRet(ctx, false, err)
+        }
+        if file != nil {
+            file.Close()
         }
     }()
+    if err != nil {
+        panic("上传字段格式错误")
+    }
     bytes, err := ioutil.ReadAll(file)
     if err != nil {
-        fmt.Println(err)
-        return
+        panic("数据解析失败")
     }
-    ctx.Write(bytes)
+    ext := filepath.Ext(handler.Filename)
+    if ext != ".jpg" && ext != ".jpeg" && ext != ".png" && ext != ".gif" && ext != ".bmp" {
+        panic("上传失败，文件格式不正确")
+    }
+    fileName := ink.GUID() + ext
+    fo, err := os.Create("public/" + fileName)
+    if err != nil {
+        panic("上传处理失败，内部错误")
+    }
+    fo.Write(bytes)
+    returnRet(ctx, true, fileName)
 }

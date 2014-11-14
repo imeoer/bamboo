@@ -11,24 +11,26 @@ import (
 func PreHandle(ctx *ink.Context) {
     // auth check
     path := ctx.Req.URL.Path
-    if path != "/user/login" && path != "/user/register" {
-        userId := ctx.TokenGet("id")
-        if userId == nil {
-            returnRet(ctx, false, "auth failed")
+    // if path != "/user/login" && path != "/user/register" {
+    //     userId := ctx.TokenGet("id")
+    //     if userId == nil {
+    //         returnRet(ctx, false, "auth failed")
+    //         ctx.Stop()
+    //         return
+    //     }
+    // }
+    // parse request json data
+    if path != "/article/upload" {
+        decoder := json.NewDecoder(ctx.Req.Body)
+        data := make(Map)
+        err := decoder.Decode(&data)
+        if err != nil {
+            returnRet(ctx, false, "json parse error")
             ctx.Stop()
             return
         }
+        ctx.Ware["data"] = data
     }
-    // parse request json data
-    decoder := json.NewDecoder(ctx.Req.Body)
-    data := make(Map)
-    err := decoder.Decode(&data)
-    if err != nil {
-        returnRet(ctx, false, "json parse error")
-        ctx.Stop()
-        return
-    }
-    ctx.Ware["data"] = data
 }
 
 func returnRet(ctx *ink.Context, status bool, result interface{}) {
