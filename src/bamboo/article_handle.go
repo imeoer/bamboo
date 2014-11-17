@@ -16,15 +16,19 @@ func ArticleUpdate(ctx *ink.Context) {
     ret := articleUpdate(userId, articleId, articleTitle, articleContent)
     if len(ret) != 0 {
         returnRet(ctx, true, ret)
-    } else {
-        returnRet(ctx, false, "文章更新失败，内部错误")
+        return
     }
+    returnRet(ctx, false, "文章更新失败，内部错误")
 }
 
 func ArticleList(ctx *ink.Context) {
     userId := ctx.TokenGet("id").(string)
     ret := articleList(userId)
-    returnRet(ctx, true, *ret)
+    if ret != nil {
+        returnRet(ctx, true, *ret)
+        return
+    }
+    returnRet(ctx, true, "文章获取失败，内部错误")
 }
 
 func ArticleGet(ctx *ink.Context) {

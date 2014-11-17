@@ -11,14 +11,14 @@ import (
 func PreHandle(ctx *ink.Context) {
     // auth check
     path := ctx.Req.URL.Path
-    // if path != "/user/login" && path != "/user/register" {
-    //     userId := ctx.TokenGet("id")
-    //     if userId == nil {
-    //         returnRet(ctx, false, "auth failed")
-    //         ctx.Stop()
-    //         return
-    //     }
-    // }
+    if path != "/user/login" && path != "/user/register" {
+        userId := ctx.TokenGet("id")
+        if userId == nil {
+            returnRet(ctx, false, "auth failed")
+            ctx.Stop()
+            return
+        }
+    }
     // parse request json data
     if path != "/article/upload" {
         decoder := json.NewDecoder(ctx.Req.Body)
