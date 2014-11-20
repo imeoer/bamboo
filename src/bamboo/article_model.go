@@ -1,7 +1,7 @@
 package bamboo
 
 import (
-    "fmt"
+    // "fmt"
     "gopkg.in/mgo.v2/bson"
 )
 
@@ -27,8 +27,6 @@ func articleUpdate(userId string, id string, title string, content string) strin
                 },
             },
         )
-        fmt.Println(objId)
-        fmt.Println(userId)
     } else {
         objId = bson.NewObjectId()
         err = db.article.Insert(bson.M{
@@ -47,12 +45,20 @@ func articleUpdate(userId string, id string, title string, content string) strin
 func articleList(userId string) *[]Article {
     user := bson.ObjectIdHex(userId)
     ret := make([]Article, 0)
-    err := db.article.Find(bson.M{"user": user}).Select(bson.M{"_id": 1, "title": 1}).All(&ret)
+    err := db.article.Find(bson.M{"user": user}).Select(bson.M{"_id": 1, "title": 1, "content": 1}).Sort("-$natural").All(&ret)
     if err == nil {
         return &ret
     }
-    fmt.Println(err)
     return nil
+}
+
+func articleRemove(userId string, id string) bool {
+    user := bson.ObjectIdHex(userId)
+    err := db.article.Remove(bson.M{"_id": bson.ObjectIdHex(id), "user": user})
+    if err == nil {
+        return true
+    }
+    return false
 }
 
 func articleGet(userId string, id string) *Article {

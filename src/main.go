@@ -4,14 +4,13 @@ import (
     "ink"
     "bamboo"
     // "fmt"
-
 )
 
 func main() {
-    app := ink.App()
+    app := ink.New()
     // middleware
-    app.Get("*", ink.Static("public"))
     app.Options("*", ink.Cors)
+    app.Get("*", ink.Static("public"))
     app.Post("*", ink.Cors)
     app.Post("*", bamboo.PreHandle)
     // user
@@ -20,6 +19,7 @@ func main() {
     // article
     app.Post("/article/update", bamboo.ArticleUpdate)
     app.Post("/article/list", bamboo.ArticleList)
+    app.Post("/article/remove", bamboo.ArticleRemove)
     app.Post("/article/get", bamboo.ArticleGet)
     app.Post("/article/upload", bamboo.ArticleUpload)
     // start server

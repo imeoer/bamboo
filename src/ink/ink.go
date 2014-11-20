@@ -119,7 +119,7 @@ func (web *Web) Listen(addr string) {
     http.ListenAndServe(addr, web)
 }
 
-func App() (web Web) {
+func New() (web Web) {
     web = Web{}
     web.route = make(map[string][]Handle)
     web.patternAry = make([][]string, 0)

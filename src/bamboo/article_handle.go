@@ -31,6 +31,17 @@ func ArticleList(ctx *ink.Context) {
     returnRet(ctx, true, "文章获取失败，内部错误")
 }
 
+func ArticleRemove(ctx *ink.Context) {
+    userId := ctx.TokenGet("id").(string)
+    articleId := getParam(ctx, "id").(string)
+    ret := articleRemove(userId, articleId)
+    if ret {
+        returnRet(ctx, true, nil)
+        return
+    }
+    returnRet(ctx, false, "文章删除失败，内部错误")
+}
+
 func ArticleGet(ctx *ink.Context) {
     userId := ctx.TokenGet("id").(string)
     articleId := getParam(ctx, "id").(string)
