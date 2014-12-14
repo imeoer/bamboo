@@ -116,7 +116,10 @@ func (web *Web) Options(pattern string, handle Handle) {
 }
 
 func (web *Web) Listen(addr string) {
-    http.ListenAndServe(addr, web)
+    err := http.ListenAndServe(addr, web)
+    if err != nil {
+        fmt.Println(err)
+    }
 }
 
 func New() (web Web) {

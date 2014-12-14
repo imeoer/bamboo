@@ -46,7 +46,7 @@ func ArticleGet(ctx *ink.Context) {
     userId := ctx.TokenGet("id").(string)
     articleId := getParam(ctx, "id").(string)
     ret := articleGet(userId, articleId)
-    if ret != nil {
+    if ret == nil {
         returnRet(ctx, false, "文章获取失败，内部错误")
         return
     }
