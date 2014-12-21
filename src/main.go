@@ -10,12 +10,12 @@ func main() {
     app := ink.New()
     // middleware
     app.Options("*", ink.Cors)
-    app.Get("*", ink.Static("public"))
+    app.Get("*", ink.Static("/home/imeoer/PROJECT/ink.go/public"))
     app.Post("*", ink.Cors)
     app.Post("*", bamboo.PreHandle)
     // user
-    app.Post("/user/login", bamboo.Login)
-    app.Post("/user/register", bamboo.Register)
+    app.Post("/user/login", bamboo.UserLogin)
+    app.Post("/user/register", bamboo.UserRegister)
     // article
     app.Post("/article/update", bamboo.ArticleUpdate)
     app.Post("/article/list", bamboo.ArticleList)

@@ -2,7 +2,7 @@ package bamboo
 
 import (
     "ink"
-    // "fmt"
+    "fmt"
     "os"
     "io/ioutil"
     "path/filepath"
@@ -75,7 +75,7 @@ func ArticleUpload(ctx *ink.Context) {
         panic("上传失败，文件格式不正确")
     }
     fileName := ink.GUID() + ext
-    fo, err := os.Create("public/" + fileName)
+    fo, err := os.Create("/home/imeoer/PROJECT/ink.go/public/" + fileName)
     if err != nil {
         panic("上传处理失败，内部错误")
     }
