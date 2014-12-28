@@ -14,6 +14,7 @@ func UserLogin(ctx *ink.Context) {
         ctx.TokenSet("id", userId)
         returnRet(ctx, true, map[string]string{
             "token": token,
+            "id": user.Id.Hex(),
             "mail": user.Mail,
             "nick": user.Nick,
             "motto": user.Motto,
@@ -26,11 +27,7 @@ func UserLogin(ctx *ink.Context) {
 }
 
 func UserRegister(ctx *ink.Context) {
-    defer func() {
-        if err := recover(); err != nil {
-            returnRet(ctx, false, err)
-        }
-    }()
+    defer exceptHandle(ctx)
     mail := getParam(ctx, "mail").(string)
     pass := getParam(ctx, "pass").(string)
     if !validType("mail", mail) {
@@ -50,20 +47,37 @@ func UserRegister(ctx *ink.Context) {
 }
 
 func UserConfig(ctx *ink.Context) {
-    defer func() {
-        if err := recover(); err != nil {
-            returnRet(ctx, false, err)
-        }
-    }()
+    defer exceptHandle(ctx)
     userId := ctx.TokenGet("id").(string)
-    mail := getParam(ctx, "mail").(string)
-    nick := getParam(ctx, "nick").(string)
-    motto := getParam(ctx, "motto").(string)
-    avatar := getParam(ctx, "avatar").(string)
-    link := getParam(ctx, "link").(string)
-    if userConfig(userId, mail, nick, motto, avatar, link) {
+    key := getParam(ctx, "key").(string)
+    value := getParam(ctx, "value").(string)
+    switch key {
+        case "mail":
+            if !validType("mail", value) {
+                panic("邮箱格式不正确")
+            }
+            if userExist(value) {
+                panic("账户已被使用")
+            }
+        case "nick":
+        case "motto":
+        case "avatar": // base64 encode
+        case "link":
+        default:
+            panic("要更新的选项不存在")
+    }
+    if userConfig(userId, key, value) {
         returnRet(ctx, true, nil)
         return
     }
     panic("更新失败，内部错误")
+}
+
+func UserFavariteArticleList(ctx *ink.Context) {
+    userId := ctx.TokenGet("id").(string)
+    ret := userFavariteArticleList(userId)
+    if ret != nil {
+        returnRet(ctx, true, ret)
+    }
+    returnRet(ctx, false, "获取收藏文章列表失败")
 }

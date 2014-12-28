@@ -8,7 +8,9 @@ type Map map[string]interface{}
 
 var db struct {
     user *mgo.Collection
-    article  *mgo.Collection
+    article *mgo.Collection
+    comment *mgo.Collection
+    favarite *mgo.Collection
 }
 
 func init() {
@@ -19,4 +21,6 @@ func init() {
     // get collection
     db.user = database.C("user")
     db.article = database.C("article")
+    db.comment = database.C("comment")
+    db.favarite = database.C("favarite")
 }

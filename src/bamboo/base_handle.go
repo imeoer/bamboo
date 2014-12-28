@@ -64,3 +64,9 @@ func validType(method string, value string) bool {
     }
     return false
 }
+
+func exceptHandle(ctx *ink.Context) {
+    if err := recover(); err != nil {
+        returnRet(ctx, false, err)
+    }
+}
