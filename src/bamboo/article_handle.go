@@ -9,12 +9,21 @@ import (
     "path/filepath"
 )
 
+var CIRCLES = []string{"电影", "音乐", "动漫", "摄影", "旅行", "产品", "想法", "游戏", "绘画", "程序", "阅读", "设计", "美食", "生活"}
+
 func ArticleUpdate(ctx *ink.Context) {
     userId := ctx.TokenGet("id").(string)
     articleId := getParam(ctx, "articleId").(string)
     articleTitle := getParam(ctx, "title").(string)
     articleContent := getParam(ctx, "content").(string)
-    ret := articleUpdate(userId, articleId, articleTitle, articleContent)
+    articleCircles := getParam(ctx, "circles").([]interface{})
+    for _, circle := range articleCircles {
+        if !isInArray(circle.(string), CIRCLES) {
+            returnRet(ctx, false, "指定圈子错误")
+            return
+        }
+    }
+    ret := articleUpdate(userId, articleId, articleTitle, articleContent, articleCircles)
     if len(ret) != 0 {
         returnRet(ctx, true, ret)
         return
@@ -48,11 +57,7 @@ func ArticleGet(ctx *ink.Context) {
     articleId := getParam(ctx, "articleId").(string)
     articleInfo := articleGet(userId, articleId)
     userInfo := userInfo(userId)
-    favariteInfo := userArticleIsFavarite(userId, articleId)
-    isFavarite := false
-    if favariteInfo != nil {
-        isFavarite = true
-    }
+    isFavarite := userArticleIsFavarite(userId, articleId)
     if articleInfo == nil || userInfo == nil {
         returnRet(ctx, false, "文章获取失败")
         return
@@ -102,36 +107,10 @@ func ArticleLike(ctx *ink.Context) {
     returnRet(ctx, ret, isLike)
 }
 
-func ArticleCommentAdd(ctx *ink.Context) {
-    userId := ctx.TokenGet("id").(string)
-    articleId := getParam(ctx, "articleId").(string)
-    content := getParam(ctx, "content").(string)
-    ret := articleCommentAdd(userId, articleId, content)
-    returnRet(ctx, ret, nil)
-}
-
-func ArticleCommentList(ctx *ink.Context) {
-    articleId := getParam(ctx, "articleId").(string)
-    ret := articleCommentList(articleId)
-    if ret == nil {
-        returnRet(ctx, false, "评论获取失败")
-        return
-    }
-    returnRet(ctx, true, *ret)
-}
-
-func ArticleCommentRemove(ctx *ink.Context) {
-    userId := ctx.TokenGet("id").(string)
-    articleId := getParam(ctx, "articleId").(string)
-    commentId := getParam(ctx, "commentId").(string)
-    ret := articleCommentRemove(userId, articleId, commentId)
-    returnRet(ctx, ret, nil)
-}
-
 func ArticleFavarite(ctx *ink.Context) {
     userId := ctx.TokenGet("id").(string)
     articleId := getParam(ctx, "articleId").(string)
     isFavarite := getParam(ctx, "favarite").(bool)
-    ret := articleLike(userId, articleId, isFavarite)
+    ret := articleFavarite(userId, articleId, isFavarite)
     returnRet(ctx, ret, isFavarite)
 }

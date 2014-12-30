@@ -27,9 +27,9 @@ func main() {
     app.Post("/article/like", bamboo.ArticleLike)
     app.Post("/article/favarite", bamboo.ArticleFavarite)
     // comment
-    app.Post("/comment/add", bamboo.ArticleCommentAdd)
-    app.Post("/comment/list", bamboo.ArticleCommentList)
-    app.Post("/comment/remove", bamboo.ArticleCommentRemove)
+    app.Post("/comment/add", bamboo.CommentAdd)
+    app.Post("/comment/list", bamboo.CommentList)
+    app.Post("/comment/remove", bamboo.CommentRemove)
     // start server
     app.Listen("0.0.0.0:9090")
 }

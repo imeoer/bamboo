@@ -70,3 +70,12 @@ func exceptHandle(ctx *ink.Context) {
         returnRet(ctx, false, err)
     }
 }
+
+func isInArray(str string, array []string) bool {
+    for _, v := range array {
+        if v == str {
+            return true
+        }
+    }
+    return false
+}

@@ -17,16 +17,17 @@ type User struct {
 
 // check user if exist
 func userExist(mail string) bool {
-    err := db.user.Find(bson.M{"mail": mail}).One(&User{})
-    if err == nil {
-        return false
+    count, err := db.user.Find(bson.M{"mail": mail}).Count()
+    if err != nil || count != 0 {
+        return true
     }
-    return true
+    return false
 }
 
 // rgister new user
 func userRegister(mail string, pass string) bool {
-    err := db.user.Insert(&User{"", mail, pass, "", "", "", ""})
+    objId := bson.NewObjectId()
+    err := db.user.Insert(&User{objId, mail, pass, "", "", "", ""})
     if err == nil {
         return true
     }
@@ -83,13 +84,12 @@ func userFavariteArticleList(userId string) *[]Article {
 }
 
 // if article is favarite
-func userArticleIsFavarite(userId string, articleId string) *Favarite {
+func userArticleIsFavarite(userId string, articleId string) bool {
     user := bson.ObjectIdHex(userId)
     article := bson.ObjectIdHex(articleId)
-    ret := &Favarite{}
-    err := db.article.Find(bson.M{"user": user, "article": article}).One(ret)
-    if err == nil {
-        return ret
+    count, err := db.favarite.Find(bson.M{"user": user, "article": article}).Count()
+    if err != nil || count == 0 {
+        return false
     }
-    return nil
+    return true
 }

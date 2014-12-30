@@ -14,7 +14,7 @@ func UserLogin(ctx *ink.Context) {
         ctx.TokenSet("id", userId)
         returnRet(ctx, true, map[string]string{
             "token": token,
-            "id": user.Id.Hex(),
+            "id": userId,
             "mail": user.Mail,
             "nick": user.Nick,
             "motto": user.Motto,
