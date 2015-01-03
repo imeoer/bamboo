@@ -14,7 +14,7 @@ func PreHandle(ctx *ink.Context) {
     if path != "/user/login" && path != "/user/register" {
         userId := ctx.TokenGet("id")
         if userId == nil {
-            returnRet(ctx, false, "auth failed")
+            returnRet(ctx, false, "权限验证失败")
             ctx.Stop()
             return
         }

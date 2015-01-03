@@ -22,6 +22,7 @@ type Article struct {
     Updated time.Time `bson:"updated" json:"updated,omitempty"`
     Like []bson.ObjectId `bson:"like" json:"like,omitempty"`
     Circle []string `bson:"circle" json:"circle,omitempty"`
+    Read uint `bson:"read" json:"read,omitempty"`
 }
 
 func articleUpdate(userId string, articleId string, title string, content string, circles []interface{}) string {
@@ -63,7 +64,8 @@ func articleUpdate(userId string, articleId string, title string, content string
 func articleList(userId string) *[]Article {
     user := bson.ObjectIdHex(userId)
     ret := make([]Article, 0)
-    err := db.article.Find(bson.M{"user": user}).Select(bson.M{"_id": 1, "title": 1, "content": 1}).Sort("-$natural").All(&ret)
+    // .Select(bson.M{"_id": 1, "title": 1, "content": 1})
+    err := db.article.Find(bson.M{"user": user}).Sort(bson.M{"updated": -1}).All(&ret)
     if err == nil {
         return &ret
     }
@@ -87,6 +89,20 @@ func articleGet(userId string, articleId string) *Article {
         return &ret
     }
     return nil
+}
+
+func articleReadCount(articleId string) bool {
+    err := db.article.Update(
+        bson.M{"_id": bson.ObjectIdHex(articleId)},
+        bson.M{"$inc":  bson.M{
+            "read": 1,
+        },
+    })
+    fmt.Println(err)
+    if err == nil {
+        return true
+    }
+    return false
 }
 
 func articleLike(userId string, articleId string, isLike bool) bool {

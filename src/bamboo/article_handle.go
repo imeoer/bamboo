@@ -9,8 +9,6 @@ import (
     "path/filepath"
 )
 
-var CIRCLES = []string{"电影", "音乐", "动漫", "摄影", "旅行", "产品", "想法", "游戏", "绘画", "程序", "阅读", "设计", "美食", "生活"}
-
 func ArticleUpdate(ctx *ink.Context) {
     userId := ctx.TokenGet("id").(string)
     articleId := getParam(ctx, "articleId").(string)
@@ -58,6 +56,7 @@ func ArticleGet(ctx *ink.Context) {
     articleInfo := articleGet(userId, articleId)
     userInfo := userInfo(userId)
     isFavarite := userArticleIsFavarite(userId, articleId)
+    articleReadCount(articleId)
     if articleInfo == nil || userInfo == nil {
         returnRet(ctx, false, "文章获取失败")
         return

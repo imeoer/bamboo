@@ -13,6 +13,7 @@ type User struct {
     Motto string `bson:"motto" json:"motto"`
     Avatar string `bson:"avatar" json:"avatar"`
     Link string `bson:"link" json:"link"`
+    Circle []string `bson:"circle" json:"circle"`
 }
 
 // check user if exist
@@ -27,7 +28,7 @@ func userExist(mail string) bool {
 // rgister new user
 func userRegister(mail string, pass string) bool {
     objId := bson.NewObjectId()
-    err := db.user.Insert(&User{objId, mail, pass, "", "", "", ""})
+    err := db.user.Insert(&User{objId, mail, pass, "", "", "", "", []string{}})
     if err == nil {
         return true
     }

@@ -78,6 +78,17 @@ func UserFavariteArticleList(ctx *ink.Context) {
     ret := userFavariteArticleList(userId)
     if ret != nil {
         returnRet(ctx, true, ret)
+        return
     }
     returnRet(ctx, false, "获取收藏文章列表失败")
+}
+
+func UserInfo(ctx *ink.Context) {
+    userId := ctx.TokenGet("id").(string)
+    ret := userInfo(userId)
+    if ret != nil {
+        returnRet(ctx, true, ret)
+        return
+    }
+    returnRet(ctx, false, "获取账户信息失败")
 }
