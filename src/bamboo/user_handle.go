@@ -73,16 +73,6 @@ func UserConfig(ctx *ink.Context) {
     panic("更新失败，内部错误")
 }
 
-func UserFavariteArticleList(ctx *ink.Context) {
-    userId := ctx.TokenGet("id").(string)
-    ret := userFavariteArticleList(userId)
-    if ret != nil {
-        returnRet(ctx, true, ret)
-        return
-    }
-    returnRet(ctx, false, "获取收藏文章列表失败")
-}
-
 func UserInfo(ctx *ink.Context) {
     userId := ctx.TokenGet("id").(string)
     ret := userInfo(userId)
@@ -91,4 +81,14 @@ func UserInfo(ctx *ink.Context) {
         return
     }
     returnRet(ctx, false, "获取账户信息失败")
+}
+
+func UserTimeline(ctx *ink.Context) {
+    userId := ctx.TokenGet("id").(string)
+    ret := userTimeline(userId)
+    if ret != nil {
+        returnRet(ctx, true, ret)
+        return
+    }
+    returnRet(ctx, false, "获取动态失败")
 }

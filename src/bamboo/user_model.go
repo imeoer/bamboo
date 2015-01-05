@@ -73,17 +73,6 @@ func userInfo(userId string) *User {
     return nil
 }
 
-// get user's favarite article list
-func userFavariteArticleList(userId string) *[]Article {
-    user := bson.ObjectIdHex(userId)
-    ret := make([]Article, 0)
-    err := db.article.Find(bson.M{"user": user}).Select(bson.M{"_id": 1, "title": 1, "content": 1}).Sort("-$natural").All(&ret)
-    if err == nil {
-        return &ret
-    }
-    return nil
-}
-
 // if article is favarite
 func userArticleIsFavarite(userId string, articleId string) bool {
     user := bson.ObjectIdHex(userId)
@@ -93,4 +82,17 @@ func userArticleIsFavarite(userId string, articleId string) bool {
         return false
     }
     return true
+}
+
+func userTimeline(userId string) *[]Article {
+    var err error
+    user := bson.ObjectIdHex(userId)
+    ret := make([]Article, 0)
+    userInfo := &User{}
+    db.user.FindId(user).One(userInfo)
+    err = db.article.Find(bson.M{"public": true, "circle": bson.M{"$in": userInfo.Circle}}).All(&ret)
+    if err == nil {
+        return &ret
+    }
+    return nil
 }

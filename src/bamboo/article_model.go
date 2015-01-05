@@ -1,7 +1,6 @@
 package bamboo
 
 import (
-    "fmt"
     "time"
     "gopkg.in/mgo.v2/bson"
 )
@@ -18,31 +17,44 @@ type Article struct {
     User bson.ObjectId `bson:"user" json:"user,omitempty"`
     Title string `bson:"title" json:"title"`
     Content string `bson:"content" json:"content,omitempty"`
+    LastContent string `bson:"last_content" json:"last_content,omitempty"`
     Created time.Time `bson:"created" json:"created,omitempty"`
     Updated time.Time `bson:"updated" json:"updated,omitempty"`
     Like []bson.ObjectId `bson:"like" json:"like,omitempty"`
     Circle []string `bson:"circle" json:"circle,omitempty"`
     Read uint `bson:"read" json:"read,omitempty"`
+    Public bool `bson:"public" json:"public,omitempty"`
+    Change uint `bson:"change" json:"change,omitempty"`
 }
 
-func articleUpdate(userId string, articleId string, title string, content string, circles []interface{}) string {
-    user := bson.ObjectIdHex(userId)
+func articleUpdate(userId string, articleId string, title string, content string, circles []interface{}, public bool) string {
     var err error
     var objId bson.ObjectId
+    user := bson.ObjectIdHex(userId)
+    // update article
     if bson.IsObjectIdHex(articleId) {
         objId = bson.ObjectIdHex(articleId)
-        err = db.article.Update(
-            bson.M{"_id": objId, "user": user},
-            bson.M{
-                "$set": bson.M{
-                    "title": title,
-                    "content": content,
-                    "updated": time.Now(),
-                    "circle": circles,
+        // get last content
+        ret := &Article{}
+        err = db.article.FindId(objId).One(ret)
+        if err == nil {
+            lastContent := ret.Content
+            err = db.article.Update(
+                bson.M{"_id": objId, "user": user},
+                bson.M{
+                    "$set": bson.M{
+                        "title": title,
+                        "content": content,
+                        "last_content": lastContent,
+                        "updated": time.Now(),
+                        "circle": circles,
+                        "public": public,
+                    },
                 },
-            },
-        )
+            )
+        }
     } else {
+        // create article
         objId = bson.NewObjectId()
         now := time.Now()
         err = db.article.Insert(bson.M{
@@ -50,9 +62,11 @@ func articleUpdate(userId string, articleId string, title string, content string
             "user": user,
             "title": title,
             "content": content,
+            "last_content": content,
             "created": now,
             "updated": now,
             "circle": circles,
+            "public": public,
         })
     }
     if err == nil {
@@ -61,11 +75,24 @@ func articleUpdate(userId string, articleId string, title string, content string
     return ""
 }
 
-func articleList(userId string) *[]Article {
+func articleList(userId string, filter string) *[]Article {
+    var err error
     user := bson.ObjectIdHex(userId)
     ret := make([]Article, 0)
-    // .Select(bson.M{"_id": 1, "title": 1, "content": 1})
-    err := db.article.Find(bson.M{"user": user}).Sort(bson.M{"updated": -1}).All(&ret)
+    if filter == "public" {
+        err = db.article.Find(bson.M{"user": user, "public": true}).All(&ret)
+    } else if filter == "private" {
+        err = db.article.Find(bson.M{"user": user, "public": false}).All(&ret)
+    } else if filter == "favarite" {
+        // get user favarite article
+        favariteInfo := make([]Favarite, 0)
+        db.favarite.Find(bson.M{"user": user}).All(&favariteInfo)
+        aritcleID := make([]bson.ObjectId, 0)
+        for _, favarite := range favariteInfo {
+            aritcleID = append(aritcleID, favarite.Article)
+        }
+        err = db.article.Find(bson.M{"public": true, "_id": bson.M{"$in": aritcleID}}).All(&ret)
+    }
     if err == nil {
         return &ret
     }
@@ -98,7 +125,6 @@ func articleReadCount(articleId string) bool {
             "read": 1,
         },
     })
-    fmt.Println(err)
     if err == nil {
         return true
     }
@@ -148,6 +174,5 @@ func articleFavarite(userId string, articleId string, isFavarite bool) bool {
     if err == nil {
         return true
     }
-    fmt.Println(err)
     return false
 }

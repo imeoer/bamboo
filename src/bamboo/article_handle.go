@@ -15,13 +15,14 @@ func ArticleUpdate(ctx *ink.Context) {
     articleTitle := getParam(ctx, "title").(string)
     articleContent := getParam(ctx, "content").(string)
     articleCircles := getParam(ctx, "circles").([]interface{})
+    articlePublic := getParam(ctx, "public").(bool)
     for _, circle := range articleCircles {
         if !isInArray(circle.(string), CIRCLES) {
             returnRet(ctx, false, "指定圈子错误")
             return
         }
     }
-    ret := articleUpdate(userId, articleId, articleTitle, articleContent, articleCircles)
+    ret := articleUpdate(userId, articleId, articleTitle, articleContent, articleCircles, articlePublic)
     if len(ret) != 0 {
         returnRet(ctx, true, ret)
         return
@@ -31,7 +32,12 @@ func ArticleUpdate(ctx *ink.Context) {
 
 func ArticleList(ctx *ink.Context) {
     userId := ctx.TokenGet("id").(string)
-    ret := articleList(userId)
+    filter := getParam(ctx, "filter").(string) // ["private", "public", "favarite"]
+    if !isInArray(filter, []string{"private", "public", "favarite"}) {
+        returnRet(ctx, false, "指定过滤条件错误")
+        return
+    }
+    ret := articleList(userId, filter)
     if ret != nil {
         returnRet(ctx, true, *ret)
         return

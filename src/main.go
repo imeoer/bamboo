@@ -17,8 +17,8 @@ func main() {
     app.Post("/user/login", bamboo.UserLogin)
     app.Post("/user/register", bamboo.UserRegister)
     app.Post("/user/config", bamboo.UserConfig)
-    app.Post("/user/favarite", bamboo.UserFavariteArticleList)
     app.Post("/user/info", bamboo.UserInfo)
+    app.Post("/user/timeline", bamboo.UserTimeline)
     // article
     app.Post("/article/update", bamboo.ArticleUpdate)
     app.Post("/article/list", bamboo.ArticleList)
