@@ -7,6 +7,7 @@ import (
 
 type User struct {
     Id bson.ObjectId `bson:"_id" json:"id"`
+    Name string `bson:"name" json:"name"`
     Mail string `bson:"mail" json:"mail"`
     Pass string `bson:"pass" json:"pass"`
     Nick string `bson:"nick" json:"nick"`
@@ -28,7 +29,7 @@ func userExist(mail string) bool {
 // rgister new user
 func userRegister(mail string, pass string) bool {
     objId := bson.NewObjectId()
-    err := db.user.Insert(&User{objId, mail, pass, "", "", "", "", []string{}})
+    err := db.user.Insert(&User{objId, "", mail, pass, "", "", "", "", []string{}})
     if err == nil {
         return true
     }

@@ -1,8 +1,9 @@
 package bamboo
 
 import (
-    "ink"
+    "github.com/imeoer/bamboo-api/ink"
     // "fmt"
+    // "unicode/utf8"
     "os"
     "io/ioutil"
     "strings"
@@ -39,6 +40,13 @@ func ArticleList(ctx *ink.Context) {
     }
     ret := articleList(userId, filter)
     if ret != nil {
+        // for idx, item := range *ret {
+        //     content := []rune(item.Content)
+        //     fmt.Println(item.Content)
+        //     if len(content) > 140 {
+        //         (*ret)[idx].Content = string(content[0:140])
+        //     }
+        // }
         returnRet(ctx, true, *ret)
         return
     }

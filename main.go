@@ -1,8 +1,8 @@
 package main
 
 import (
-    "ink"
-    "bamboo"
+    "github.com/imeoer/bamboo-api/ink"
+    "github.com/imeoer/bamboo-api/bamboo"
     // "fmt"
 )
 

@@ -1,7 +1,7 @@
 package bamboo
 
 import (
-    "ink"
+    "github.com/imeoer/bamboo-api/ink"
 )
 
 func UserLogin(ctx *ink.Context) {
@@ -58,6 +58,10 @@ func UserConfig(ctx *ink.Context) {
             }
             if userExist(value) {
                 panic("账户已被使用")
+            }
+        case "name":
+            if !validate("[A-Za-z0-9_]+", value) {
+                panic("账户名称只接受字母数字下划线")
             }
         case "nick":
         case "motto":

@@ -1,7 +1,7 @@
 package bamboo
 
 import (
-    "ink"
+    "github.com/imeoer/bamboo-api/ink"
 )
 
 var CIRCLES = []string{"电影", "音乐", "二次元", "摄影", "旅行", "产品", "想法", "游戏", "绘画", "程序", "阅读", "设计", "美食", "生活"}

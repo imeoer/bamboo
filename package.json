@@ -1,9 +1,0 @@
-{
-    "name": "inkgo",
-    "version": "0.0.1",
-    "devDependencies": {
-        "gulp": "^3.8.5",
-        "gulp-connect": "^2.0.6",
-        "gulp-define-module": "^0.1.1"
-    }
-}

@@ -1,7 +1,7 @@
 package bamboo
 
 import (
-    "ink"
+    "github.com/imeoer/bamboo-api/ink"
 )
 
 func CommentAdd(ctx *ink.Context) {
