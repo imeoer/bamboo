@@ -15,7 +15,7 @@ var db struct {
 
 func init() {
     // connect db
-    session, _ := mgo.Dial("127.0.0.1:27017")
+    session, _ := mgo.Dial("mongodb:27017")
     session.SetMode(mgo.Monotonic, true)
     database := session.DB("bamboo")
     // get collection

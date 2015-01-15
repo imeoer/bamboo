@@ -10,7 +10,7 @@ func main() {
     app := ink.New()
     // middleware
     app.Options("*", ink.Cors)
-    app.Get("*", ink.Static("/home/imeoer/PROJECT/ink.go/public"))
+    app.Get("*", ink.Static("/data/public"))
     app.Post("*", ink.Cors)
     app.Post("*", bamboo.PreHandle)
     // user

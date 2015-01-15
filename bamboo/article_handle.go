@@ -104,7 +104,7 @@ func ArticleUpload(ctx *ink.Context) {
         panic("上传文件格式不正确")
     }
     fileName := ink.GUID() + ext
-    fo, err := os.Create("/home/imeoer/PROJECT/ink.go/public/" + fileName)
+    fo, err := os.Create("/data/public/" + fileName)
     if err != nil {
         panic("上传处理失败")
     }
