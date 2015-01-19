@@ -96,3 +96,13 @@ func UserTimeline(ctx *ink.Context) {
     }
     returnRet(ctx, false, "获取动态失败")
 }
+
+func UserPage(ctx *ink.Context) {
+    userName := getParam(ctx, "name").(string)
+    ret := userPage(userName)
+    if ret != nil {
+        returnRet(ctx, true, ret)
+        return
+    }
+    returnRet(ctx, false, "获取用户页面失败")
+}

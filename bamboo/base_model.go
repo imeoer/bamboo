@@ -1,7 +1,8 @@
 package bamboo
 
 import (
-    "time"
+    "os"
+    "fmt"
     "gopkg.in/mgo.v2"
 )
 
@@ -16,7 +17,11 @@ var db struct {
 
 func init() {
     // connect db
-    session, _ := mgo.DialWithTimeout("mongodb:27017", time.Duration(50 * time.Second))
+    session, err := mgo.Dial("mongodb:27017")
+    if err != nil {
+        fmt.Println("DB connect failed")
+        os.Exit(1)
+    }
     session.SetMode(mgo.Monotonic, true)
     database := session.DB("bamboo")
     // get collection

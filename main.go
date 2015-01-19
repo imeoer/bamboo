@@ -1,9 +1,9 @@
 package main
 
 import (
+    "fmt"
     "github.com/imeoer/bamboo-api/ink"
     "github.com/imeoer/bamboo-api/bamboo"
-    // "fmt"
 )
 
 func main() {
@@ -19,6 +19,7 @@ func main() {
     app.Post("/user/config", bamboo.UserConfig)
     app.Post("/user/info", bamboo.UserInfo)
     app.Post("/user/timeline", bamboo.UserTimeline)
+    app.Post("/user/page", bamboo.UserPage)
     // article
     app.Post("/article/update", bamboo.ArticleUpdate)
     app.Post("/article/list", bamboo.ArticleList)
@@ -34,5 +35,6 @@ func main() {
     // circle
     app.Post("/circle/focus", bamboo.CircleFocus)
     // start server
-    app.Listen("0.0.0.0:9090")
+    fmt.Println("Listening on 8888...")
+    app.Listen("0.0.0.0:8888")
 }

@@ -97,3 +97,19 @@ func userTimeline(userId string) *[]Article {
     }
     return nil
 }
+
+func userPage(userName string) *map[string]interface{} {
+    userInfo := &User{}
+    db.user.Find(bson.M{"name": userName}).One(userInfo)
+    userId := userInfo.Id.Hex()
+    if userId != "" {
+        articles := articleList(userId, "public")
+        if articles != nil {
+            return &map[string]interface{} {
+                "user": *userInfo,
+                "articles": *articles,
+            }
+        }
+    }
+    return nil
+}

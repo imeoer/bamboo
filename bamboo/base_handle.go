@@ -11,7 +11,7 @@ import (
 func PreHandle(ctx *ink.Context) {
     // auth check
     path := ctx.Req.URL.Path
-    if path != "/user/login" && path != "/user/register" {
+    if path != "/user/login" && path != "/user/register" && path != "/user/page" {
         userId := ctx.TokenGet("id")
         if userId == nil {
             returnRet(ctx, false, "权限验证失败")
