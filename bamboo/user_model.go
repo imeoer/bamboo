@@ -100,14 +100,22 @@ func userArticleIsFavarite(userId string, articleId string) bool {
     return true
 }
 
-func userTimeline(userId string) *[]Article {
+func userTimeline(userId string) *[]Map {
     var err error
     user := bson.ObjectIdHex(userId)
-    ret := make([]Article, 0)
-    userInfo := &User{}
-    db.user.FindId(user).One(userInfo)
-    err = db.article.Find(bson.M{"public": true, "circle": bson.M{"$in": userInfo.Circle}}).All(&ret)
+    articles := make([]Article, 0)
+    currentUser := &User{}
+    db.user.FindId(user).One(currentUser)
+    err = db.article.Find(bson.M{"public": true, "circle": bson.M{"$in": currentUser.Circle}}).All(&articles)
     if err == nil {
+        ret := make([]Map, 0)
+        for _, article := range articles {
+            user := userInfo(article.User.Hex())
+            ret = append(ret, Map{
+                "user": (*user)["user"],
+                "article": article,
+            })
+        }
         return &ret
     }
     return nil

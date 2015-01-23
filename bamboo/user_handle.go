@@ -1,6 +1,7 @@
 package bamboo
 
 import (
+    "fmt"
     "github.com/imeoer/bamboo-api/ink"
 )
 
@@ -38,6 +39,16 @@ func UserRegister(ctx *ink.Context) {
         return
     }
     panic("注册失败，内部错误")
+}
+
+func UserCheckToken(ctx *ink.Context) {
+    userId := ctx.TokenGet("id")
+    fmt.Println(userId)
+    if userId != nil {
+        returnRet(ctx, true, nil)
+        return
+    }
+    returnRet(ctx, false, nil)
 }
 
 func UserConfig(ctx *ink.Context) {

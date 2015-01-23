@@ -75,14 +75,14 @@ func articleUpdate(userId string, articleId string, title string, content string
     return ""
 }
 
-func articleList(userId string, filter string) *[]Article {
+func articleList(userId string, filter string) *[]Map {
     var err error
     user := bson.ObjectIdHex(userId)
-    ret := make([]Article, 0)
+    articles := make([]Article, 0)
     if filter == "public" {
-        err = db.article.Find(bson.M{"user": user, "public": true}).All(&ret)
+        err = db.article.Find(bson.M{"user": user, "public": true}).All(&articles)
     } else if filter == "private" {
-        err = db.article.Find(bson.M{"user": user, "public": false}).All(&ret)
+        err = db.article.Find(bson.M{"user": user, "public": false}).All(&articles)
     } else if filter == "favarite" {
         // get user favarite article
         favariteInfo := make([]Favarite, 0)
@@ -91,9 +91,17 @@ func articleList(userId string, filter string) *[]Article {
         for _, favarite := range favariteInfo {
             aritcleID = append(aritcleID, favarite.Article)
         }
-        err = db.article.Find(bson.M{"public": true, "_id": bson.M{"$in": aritcleID}}).All(&ret)
+        err = db.article.Find(bson.M{"public": true, "_id": bson.M{"$in": aritcleID}}).All(&articles)
     }
     if err == nil {
+        ret := make([]Map, 0)
+        for _, article := range articles {
+            user := userInfo(article.User.Hex())
+            ret = append(ret, Map{
+                "user": (*user)["user"],
+                "article": article,
+            })
+        }
         return &ret
     }
     return nil

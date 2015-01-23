@@ -20,6 +20,7 @@ func main() {
     app.Post("/user/info", bamboo.UserInfo)
     app.Post("/user/timeline", bamboo.UserTimeline)
     app.Post("/user/page", bamboo.UserPage)
+    app.Post("/user/check_token", bamboo.UserCheckToken)
     // article
     app.Post("/article/update", bamboo.ArticleUpdate)
     app.Post("/article/list", bamboo.ArticleList)
