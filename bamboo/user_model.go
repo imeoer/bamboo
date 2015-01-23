@@ -64,14 +64,29 @@ func userConfig(userId string, key string, value string) bool {
 }
 
 // user info
-func userInfo(userId string) *User {
+func userInfo(userId string) *Map {
     user := bson.ObjectIdHex(userId)
-    ret := &User{}
-    err := db.user.FindId(user).One(ret)
-    if err == nil {
-        return ret
+    // get user info
+    userInfo := &User{}
+    err := db.user.FindId(user).One(userInfo)
+    if err != nil {
+        return nil
     }
-    return nil
+    // get article count
+    articleCount, err := db.article.Find(bson.M{"user": user}).Count()
+    if err != nil {
+        return nil
+    }
+    // get favarite count
+    favariteCount, err := db.favarite.Find(bson.M{"user": user}).Count()
+    if err != nil {
+        return nil
+    }
+    return &Map{
+        "user": *userInfo,
+        "article": articleCount,
+        "favarite": favariteCount,
+    }
 }
 
 // if article is favarite
@@ -98,14 +113,14 @@ func userTimeline(userId string) *[]Article {
     return nil
 }
 
-func userPage(userName string) *map[string]interface{} {
+func userPage(userName string) *Map {
     userInfo := &User{}
     db.user.Find(bson.M{"name": userName}).One(userInfo)
     userId := userInfo.Id.Hex()
     if userId != "" {
         articles := articleList(userId, "public")
         if articles != nil {
-            return &map[string]interface{} {
+            return &Map{
                 "user": *userInfo,
                 "articles": *articles,
             }

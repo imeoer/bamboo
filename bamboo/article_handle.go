@@ -65,21 +65,40 @@ func ArticleRemove(ctx *ink.Context) {
 }
 
 func ArticleGet(ctx *ink.Context) {
-    userId := ctx.TokenGet("id").(string)
+    userIdValue := ctx.TokenGet("id")
     articleId := getParam(ctx, "articleId").(string)
-    articleInfo := articleGet(userId, articleId)
-    userInfo := userInfo(userId)
-    isFavarite := userArticleIsFavarite(userId, articleId)
-    articleReadCount(articleId)
-    if articleInfo == nil || userInfo == nil {
-        returnRet(ctx, false, "文章获取失败")
-        return
+    var articleInfo *Article
+    if userIdValue == nil {
+        articleInfo = articleGet("", articleId)
+        userId := articleInfo.User.Hex()
+        userInfo := userInfo(userId)
+        user := (*userInfo)["user"].(User)
+        returnRet(ctx, true, Map{
+            "article": articleInfo,
+            "favarite": false,
+            "user": map[string]string{
+                "avatar": user.Avatar,
+                "nick": user.Nick,
+                "motto": user.Motto,
+            },
+        })
+    } else {
+        userId := userIdValue.(string)
+        userInfo := userInfo(userId)
+        user := (*userInfo)["user"].(User)
+        articleInfo = articleGet(userId, articleId)
+        isFavarite := userArticleIsFavarite(userId, articleId)
+        returnRet(ctx, true, Map{
+            "article": articleInfo,
+            "favarite": isFavarite,
+            "user": map[string]string{
+                "avatar": user.Avatar,
+                "nick": user.Nick,
+                "motto": user.Motto,
+            },
+        })
     }
-    returnRet(ctx, true, Map{
-        "article": articleInfo,
-        "user": userInfo,
-        "favarite": isFavarite,
-    })
+    articleReadCount(articleId)
 }
 
 func ArticleUpload(ctx *ink.Context) {

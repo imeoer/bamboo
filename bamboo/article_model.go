@@ -109,9 +109,14 @@ func articleRemove(userId string, articleId string) bool {
 }
 
 func articleGet(userId string, articleId string) *Article {
-    user := bson.ObjectIdHex(userId)
+    var err error
     ret := Article{}
-    err := db.article.Find(bson.M{"_id": bson.ObjectIdHex(articleId), "user": user}).One(&ret)
+    if userId == "" {
+        err = db.article.Find(bson.M{"_id": bson.ObjectIdHex(articleId), "public": true}).One(&ret)
+    } else {
+        user := bson.ObjectIdHex(userId)
+        err = db.article.Find(bson.M{"_id": bson.ObjectIdHex(articleId), "user": user}).One(&ret)
+    }
     if err == nil {
         return &ret
     }
