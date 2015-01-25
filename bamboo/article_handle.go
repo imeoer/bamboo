@@ -65,39 +65,21 @@ func ArticleRemove(ctx *ink.Context) {
 }
 
 func ArticleGet(ctx *ink.Context) {
-    userIdValue := ctx.TokenGet("id")
     articleId := getParam(ctx, "articleId").(string)
-    var articleInfo *Article
-    if userIdValue == nil {
-        articleInfo = articleGet("", articleId)
-        userId := articleInfo.User.Hex()
-        userInfo := userInfo(userId)
-        user := (*userInfo)["user"].(User)
-        returnRet(ctx, true, Map{
-            "article": articleInfo,
-            "favarite": false,
-            "user": map[string]string{
-                "avatar": user.Avatar,
-                "nick": user.Nick,
-                "motto": user.Motto,
-            },
-        })
-    } else {
-        userId := userIdValue.(string)
-        userInfo := userInfo(userId)
-        user := (*userInfo)["user"].(User)
-        articleInfo = articleGet(userId, articleId)
-        isFavarite := userArticleIsFavarite(userId, articleId)
-        returnRet(ctx, true, Map{
-            "article": articleInfo,
-            "favarite": isFavarite,
-            "user": map[string]string{
-                "avatar": user.Avatar,
-                "nick": user.Nick,
-                "motto": user.Motto,
-            },
-        })
-    }
+    articleInfo := articleGet("", articleId)
+    userId := articleInfo.User.Hex()
+    userInfo := userInfo(userId)
+    user := (*userInfo)["user"].(User)
+    returnRet(ctx, true, Map{
+        "article": articleInfo,
+        "favarite": false,
+        "user": map[string]string{
+            "avatar": user.Avatar,
+            "nick": user.Nick,
+            "motto": user.Motto,
+            "name": user.Name,
+        },
+    })
     articleReadCount(articleId)
 }
 
@@ -123,7 +105,7 @@ func ArticleUpload(ctx *ink.Context) {
         panic("上传文件格式不正确")
     }
     fileName := ink.GUID() + ext
-    fo, err := os.Create("/data/public/" + fileName)
+    fo, err := os.Create("public/images/" + fileName)
     if err != nil {
         panic("上传处理失败")
     }

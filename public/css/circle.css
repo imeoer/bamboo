@@ -1,0 +1,90 @@
+#main .circle .circle-list {
+  overflow: auto;
+  margin-left: -112px;
+}
+#main .circle .circle-list .circle-item {
+  width: 250px;
+  float: left;
+  cursor: pointer;
+  /* border-radius: 5px; */
+  /* margin-right: 90px; */
+  margin-bottom: 100px;
+  margin-left: 130px;
+  border-radius: 5px;
+  margin-bottom: 50px;
+}
+#main .circle .circle-list .circle-item:hover {
+  color: #000;
+}
+#main .circle .circle-list .circle-item:hover .info .focus {
+  border: 2px #ccc solid;
+}
+#main .circle .circle-list .circle-item:hover .info .focus .icon {
+  color: #ccc;
+}
+#main .circle .circle-list .circle-item.focused .info .focus {
+  border: 2px #999 solid;
+}
+#main .circle .circle-list .circle-item.focused .info .focus .icon {
+  color: #999;
+}
+#main .circle .circle-list .circle-item .info {
+  position: relative;
+}
+#main .circle .circle-list .circle-item .info .icon {
+  float: left;
+  font-size: 22px;
+  margin-right: 15px;
+}
+#main .circle .circle-list .circle-item .info .name {
+  font-size: 20px;
+}
+#main .circle .circle-list .circle-item .info .focus {
+  position: absolute;
+  right: 0px;
+  top: 14px;
+  border: 2px #eee solid;
+  width: 26px;
+  height: 26px;
+  border-radius: 26px;
+  cursor: pointer;
+  transition-property: border;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-out;
+}
+#main .circle .circle-list .circle-item .info .focus .icon {
+  transition-property: color;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-out;
+  font-size: 16px;
+  padding-top: 5px;
+  padding-left: 2px;
+  color: #eee;
+}
+#main .circle .circle-list .circle-item .info .article-num {
+  float: right;
+  margin-top: -16px;
+  font-size: 14px;
+  color: #bbb;
+  font-style: italic;
+}
+#main .circle .circle-list .circle-item .info .article-num .num {
+  font-weight: bold;
+  margin-left: 5px;
+}
+#main .circle .circle-list .circle-item .info .focus-num {
+  float: right;
+  margin-top: -47px;
+  font-size: 14px;
+  color: #bbb;
+  font-style: italic;
+}
+#main .circle .circle-list .circle-item .info .focus-num .num {
+  font-weight: bold;
+  margin-left: 5px;
+}
+#main .circle .circle-list .circle-item .info .description {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #aaa;
+}

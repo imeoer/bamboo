@@ -1,0 +1,360 @@
+#main {
+  margin: 0 auto;
+  margin-bottom: 120px;
+}
+#main .left {
+  height: 200px;
+  height: 100%;
+  bottom: 0;
+  top: 0;
+  position: fixed;
+  border-right: 1px dashed #eee;
+  display: flex;
+  align-items: center;
+}
+#main .left:hover {
+  opacity: 1;
+}
+#main .left .container {
+  padding: 60px 60px 60px 60px;
+}
+#main .left .container div,
+#main .left .container ul {
+  text-align: right;
+}
+#main .left .container .avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 70px;
+  float: right;
+  clear: both;
+  margin-bottom: 20px;
+  background-image: url(../img/avatar.png);
+  background-size: cover;
+}
+#main .left .container .nick {
+  margin-top: 18px;
+  font-size: 16px;
+  clear: both;
+  text-align: right;
+  width: auto;
+}
+#main .left .container .info-list {
+  text-align: right;
+  margin-top: 50px;
+}
+#main .left .container .info-list .info-item {
+  margin-top: 10px;
+}
+#main .left .container .info-list .count {
+  font-size: 18px;
+  font-style: italic;
+}
+#main .left .container .info-list .name {
+  font-size: 14px;
+  margin-left: 5px;
+  font-style: italic;
+  color: #ff7800;
+}
+#main .left .container .info-list .icon {
+  margin-left: 15px;
+  font-size: 14px;
+  color: #aaa;
+}
+#main .left .container .write {
+  margin-top: 50px;
+  width: 100%;
+  font-size: 18px;
+  cursor: pointer;
+  color: #aaa;
+}
+#main .left .container .write:hover {
+  color: #888;
+}
+#main .left .container .write .icon {
+  margin-right: 10px;
+}
+#main .left .container .menu {
+  margin-top: 50px;
+}
+#main .left .container .menu .menu-item {
+  width: 100%;
+  margin-bottom: 20px;
+}
+#main .left .container .menu .menu-item .icon {
+  margin-right: 10px;
+  font-size: 18px;
+}
+#main .left .container .menu .menu-item.recommend {
+  margin-bottom: 0;
+}
+#main .toolbar {
+  padding: 30px;
+  position: absolute;
+}
+#main .toolbar .avatar {
+  width: 67px;
+  height: 67px;
+  border-radius: 67px;
+  background: url(../img/avatar.png) no-repeat;
+}
+#main .right {
+  padding-top: 80px;
+  margin: 0 auto;
+  color: #444;
+  width: 664px;
+  position: relative;
+}
+#main .right .main {
+  overflow: auto;
+}
+#main .right .main .nocontent {
+  padding-top: 40px;
+  text-align: center;
+  margin: 0 auto;
+  color: #ccc;
+  font-size: 18px;
+}
+#main .right .main .nocontent .icon {
+  color: #ddd;
+  display: block;
+  font-size: 32px;
+  margin-bottom: 7px;
+}
+#main .right .main .nocontent div.tip {
+  margin-top: 30px;
+  font-style: italic;
+}
+#main .right .tool {
+  font-size: 18px;
+  display: inline-block;
+  margin-bottom: 80px;
+  width: 100%;
+  margin-top: 10px;
+  margin-right: 60px;
+  font-size: 16px;
+}
+#main .right .tool .item {
+  padding: 5px 15px;
+  margin-right: 15px;
+  color: #333;
+  float: left;
+  cursor: pointer;
+}
+#main .right .tool .item i {
+  float: left;
+  margin-top: 1px;
+  margin-right: 7px;
+}
+#main .right .tool .item .name {
+  float: left;
+}
+#main .right .tool .item.selected {
+  background-color: #333;
+  color: #fff;
+}
+#main .right .tool .item.selected .count {
+  opacity: 0.7;
+}
+#main .right .tool .item[data-id="setting"] {
+  float: right;
+  margin-right: 0;
+}
+#main .right .tool .item[data-id="circle"] {
+  float: right;
+}
+#main .right .tool .item .icon-book-open {
+  display: block;
+  float: left;
+  margin-top: 1px;
+  margin-right: 10px;
+}
+#main .right .tool .item .count {
+  font-size: 12px;
+  margin-left: 10px;
+  margin-top: 3px;
+  opacity: 0.5;
+  float: right;
+  display: none;
+}
+#main .right .logo {
+  transition-property: opacity;
+  transition-duration: 1s;
+  transition-timing-function: ease-out;
+  background-image: url(../img/inkpaper.png);
+  background-size: cover;
+  width: 161px;
+  height: 109px;
+  margin: 0 auto;
+  clear: both;
+  margin-bottom: 80px;
+}
+#main .right .title {
+  font-size: 20px;
+}
+#main .right .title .icon {
+  margin-right: 10px;
+}
+#main .right .article-list {
+  margin-top: 0px;
+  overflow: auto;
+}
+#main .right .article-list .article-item {
+  transition-property: opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+  margin-bottom: 60px;
+  overflow-x: hidden;
+  cursor: pointer;
+}
+#main .right .article-list .article-item:hover {
+  opacity: 0.8;
+}
+#main .right .article-list .article-item .info {
+  position: absolute;
+  margin-top: 57px;
+  margin-bottom: 10px;
+  margin-left: -100px;
+}
+#main .right .article-list .article-item .info span {
+  text-align: right;
+  display: block;
+  font-style: italic;
+  color: #ccc;
+}
+#main .right .article-list .article-item .info label {
+  font-size: 16px;
+}
+#main .right .article-list .article-item .info .num {
+  font-size: 24px;
+}
+#main .right .article-list .article-item .info .status {
+  display: block;
+  margin-top: 5px;
+  font-size: 14px;
+}
+#main .right .article-list .article-item .tool {
+  position: absolute;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  opacity: 0;
+  margin-left: -80px;
+}
+#main .right .article-list .article-item .tool li {
+  font-size: 16px;
+  color: #000;
+  width: 35px;
+  height: 35px;
+  line-height: 39px;
+  text-align: center;
+  background-color: #fff;
+  margin-bottom: 10px;
+  border-radius: 35px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+#main .right .article-list .article-item .tool li:hover {
+  color: #fff;
+  background-color: #000;
+}
+#main .right .article-list .article-item .update-value {
+  position: absolute;
+  margin-top: 76px;
+  margin-bottom: 10px;
+  opacity: 1;
+  margin-left: -110px;
+  color: #ccc;
+  font-style: italic;
+  font-size: 24px;
+}
+#main .right .article-list .article-item .update-value .update {
+  font-size: 14px;
+  margin-left: 5px;
+}
+#main .right .article-list .article-item:hover .tool {
+  opacity: 1;
+}
+#main .right .article-list .article-item:hover .update-value {
+  opacity: 0;
+}
+#main .right .article-list .article-item:last-child {
+  border-bottom: 0;
+}
+#main .right .article-list .article-item .card {
+  width: 100%;
+}
+#main .right .article-list .article-item .thematic {
+  color: #fff;
+  width: 100%;
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+}
+#main .right .article-list .article-item .thematic .gradient {
+  border-radius: 7px;
+  width: 100%;
+  height: 100%;
+}
+#main .right .article-list .article-item .title {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+#main .right .article-list .article-item .preview {
+  display: inline-block;
+  letter-spacing: 0.5px;
+  line-height: 26px;
+  font-size: 14px;
+  padding: 5px 0 5px 0;
+  color: #777;
+}
+#main .right .article-list .article-item .footer {
+  clear: both;
+  height: 40px;
+  width: 100%;
+  display: inline-block;
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 14px;
+}
+#main .right .article-list .article-item .footer .item {
+  margin-right: 15px;
+  float: left;
+}
+#main .right .article-list .article-item .footer .icon {
+  margin-right: 6px;
+  float: left;
+}
+#main .right .article-list .article-item .footer .author {
+  float: left;
+  font-size: 14px;
+  line-height: 24px;
+}
+#main .right .article-list .article-item .footer .author .avatar {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 20px;
+  background-size: cover;
+  background-image: url(../img/avatar.png);
+  background-repeat: no-repeat;
+  float: left;
+}
+#main .right .article-list .article-item .footer .detail {
+  float: right;
+}
+#main .right .article-list .article-item .footer .read {
+  float: right;
+  font-style: italic;
+  cursor: pointer;
+}
+#main .right .article-list .article-item .footer .read:hover {
+  color: #666;
+}

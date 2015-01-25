@@ -27,13 +27,13 @@ func userExist(mail string) bool {
 }
 
 // rgister new user
-func userRegister(mail string, pass string) bool {
+func userRegister(mail string, pass string) string {
     objId := bson.NewObjectId()
     err := db.user.Insert(&User{objId, "", mail, pass, "", "", "", "", []string{}})
     if err == nil {
-        return true
+        return objId.Hex()
     }
-    return false
+    return ""
 }
 
 // user login

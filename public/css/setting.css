@@ -1,0 +1,138 @@
+#main .setting .home {
+  font-size: 24px;
+  margin: 35px;
+  position: absolute;
+  color: #333;
+}
+#main .setting .home .icon-btn {
+  margin-right: 12px;
+  float: left;
+  margin-top: 3px;
+}
+#main .setting .home .title {
+  font-size: 18px;
+}
+#main .setting .input-wrap {
+  padding: 4px;
+  border: 1px #ddd solid;
+  background-color: #fff;
+  height: 22px;
+}
+#main .setting .input-wrap input {
+  float: left;
+  width: 400px;
+  font-style: italic;
+  font-size: 14px;
+  border: 0;
+  margin-top: 3px;
+  margin-left: 3px;
+  color: #888;
+}
+#main .setting .input-wrap .confirm {
+  float: right;
+  margin-right: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 4px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+#main .setting .input-wrap .confirm:hover {
+  opacity: 1;
+}
+#main .setting input[type="file"] {
+  opacity: 0;
+  width: 70px;
+  height: 70px;
+  z-index: 1;
+  position: absolute;
+  cursor: pointer;
+}
+#main .setting img.preview {
+  width: 70px;
+  height: 70px;
+  border: 0;
+  border-radius: 67px;
+  float: left;
+  border: 1px #eee solid;
+  cursor: pointer;
+}
+#main .setting .page-setting {
+  color: #393939;
+}
+#main .setting .page-setting .setting-group {
+  margin-bottom: 120px;
+}
+#main .setting .page-setting .setting-group .head {
+  padding-right: 15px;
+  width: 100px;
+  text-align: right;
+  color: #aaa;
+  float: left;
+  display: inline-block;
+}
+#main .setting .page-setting .setting-group .head .main {
+  font-size: 21px;
+  display: block;
+  color: #aaa;
+}
+#main .setting .page-setting .setting-group .head .sub {
+  font-size: 12px;
+  color: #ccc;
+  display: block;
+  margin-top: 5px;
+}
+#main .setting .page-setting .setting-group .content.motto {
+  border: 0;
+  margin-left: 36px;
+  margin-top: 0px;
+  resize: none;
+}
+#main .setting .page-setting .setting-group .info {
+  margin-top: 26px;
+  margin-left: 30px;
+  display: inline-block;
+}
+#main .setting .page-setting .setting-group .info .nick {
+  font-weight: bold;
+  font-size: 24px;
+  color: #666;
+  border: 0;
+  width: 300px;
+}
+#main .setting .page-setting .setting-group .info .motto {
+  margin-top: 2px;
+  font-size: 16px;
+  color: #bbb;
+}
+#main .setting .page-setting .setting-group .preface {
+  line-height: 24px;
+}
+#main .setting .page-setting .setting-group .content {
+  margin-top: 20px;
+  color: #5b5b5b;
+  font-size: 16px;
+  margin-left: 150px;
+}
+#main .setting .page-setting .setting-group .content .social-list {
+  margin-bottom: 15px;
+}
+#main .setting .page-setting .setting-group .content .social-list .douban {
+  font-weight: bold;
+}
+#main .setting .page-setting .setting-group .content .social-list .split {
+  font-weight: bold;
+  padding: 0 5px 0 5px;
+}
+#main .setting .page-setting .setting-group .content .password .input-split {
+  float: left;
+  font-weight: bold;
+  margin-top: 3px;
+  margin-left: 5px;
+  margin-right: 4px;
+}
+#main .setting .page-setting .setting-group .content .password input {
+  margin-right: 5px;
+  width: 128px;
+  float: left;
+}

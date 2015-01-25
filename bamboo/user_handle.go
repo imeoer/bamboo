@@ -34,8 +34,12 @@ func UserRegister(ctx *ink.Context) {
     if userExist(mail) {
         panic("账户已被使用")
     }
-    if userRegister(mail, pass) {
-        returnRet(ctx, true, nil)
+    if userId := userRegister(mail, pass); userId != "" {
+        token := ctx.TokenNew()
+        ctx.TokenSet("id", userId)
+        returnRet(ctx, true, Map{
+            "token": token,
+        })
         return
     }
     panic("注册失败，内部错误")

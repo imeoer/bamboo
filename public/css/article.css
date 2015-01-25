@@ -1,0 +1,221 @@
+#article,
+#edit {
+  width: 664px;
+  margin: 0 auto;
+}
+#article .meta,
+#edit .meta {
+  margin-bottom: 350px;
+}
+#article .meta .author,
+#edit .meta .author {
+  float: left;
+}
+#article .meta .author .avatar,
+#edit .meta .author .avatar {
+  width: 67px;
+  height: 67px;
+  border-radius: 67px;
+  border: 1px #eee solid;
+  cursor: pointer;
+  float: left;
+}
+#article .meta .author .author-info,
+#edit .meta .author .author-info {
+  float: left;
+  margin-top: 15px;
+  margin-left: 20px;
+}
+#article .meta .author .author-info .nick,
+#edit .meta .author .author-info .nick {
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+}
+#article .meta .author .author-info .motto,
+#edit .meta .author .author-info .motto {
+  margin-top: 5px;
+  color: #aaa;
+  line-height: 22px;
+  font-size: 14px;
+}
+#article .meta .tool,
+#edit .meta .tool {
+  float: right;
+  font-size: 26px;
+  margin-top: 30px;
+}
+#article .meta .tool .icon,
+#edit .meta .tool .icon {
+  color: #aaa;
+  cursor: pointer;
+}
+#article .meta .tool .icon:hover,
+#edit .meta .tool .icon:hover {
+  color: #000;
+}
+#article .article,
+#edit .article {
+  padding-top: 110px;
+}
+#article .article .author,
+#edit .article .author {
+  position: absolute;
+  margin-left: -240px;
+  width: 150px;
+  border-right: 1px #bbb dashed;
+  padding: 10px 20px 10px 0;
+}
+#article .article .author .avatar,
+#edit .article .author .avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 70px;
+  border: 1px #eee solid;
+  cursor: pointer;
+  float: right;
+}
+#article .article .author .nick,
+#edit .article .author .nick {
+  text-align: right;
+  width: 100%;
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 18px;
+}
+#article .article .author .motto,
+#edit .article .author .motto {
+  margin-top: 15px;
+  color: #aaa;
+  width: 100%;
+  text-align: right;
+  line-height: 22px;
+  display: inline-block;
+  font-size: 14px;
+}
+#article .article .title,
+#edit .article .title {
+  font-size: 32px;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 550px;
+  width: 100%;
+  line-height: 52px;
+  letter-spacing: 1px;
+}
+#article .article .image-info,
+#edit .article .image-info {
+  font-size: 16px;
+  position: absolute;
+  width: 110px;
+  margin-left: -155px;
+  margin-top: 2px;
+  text-align: right;
+  border-top: 2px #d3d3d3 solid;
+  padding-top: 5px;
+  color: #acacac;
+  padding-left: 15px;
+  line-height: 22px;
+}
+#article .article .content,
+#edit .article .content {
+  font-family: Menlo, "Ubuntu Mono", Consolas, "Courier New", Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
+  font-size: 16px;
+  letter-spacing: 1px;
+  line-height: 1.7;
+  color: #2f2f2f;
+  margin-bottom: 100px;
+}
+#article .article .content p,
+#edit .article .content p {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+#article .article .content img,
+#edit .article .content img {
+  margin: 0 auto;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  max-width: 664px;
+  border: 1px solid #eee;
+  display: block;
+}
+#article .article .content embed,
+#edit .article .content embed,
+#article .article .content iframe,
+#edit .article .content iframe {
+  margin: 0 auto;
+  display: block;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  opacity: 0.8;
+}
+#article .article .content embed:hover,
+#edit .article .content embed:hover,
+#article .article .content iframe:hover,
+#edit .article .content iframe:hover {
+  opacity: 1;
+}
+#article .article .content .cover,
+#edit .article .content .cover {
+  background-color: #000;
+}
+#article .article .content blockquote,
+#edit .article .content blockquote {
+  border-left: 4px #555 solid;
+  padding-left: 35px;
+  margin-left: 0;
+  padding-top: 0;
+  margin-right: 0;
+  padding-bottom: 0;
+}
+#article .info,
+#edit .info {
+  width: 100%;
+  margin: 0 auto;
+  font-size: 16px;
+  margin-top: 30px;
+  margin-bottom: 70px;
+  text-align: center;
+  color: #bbbbbb;
+  font-style: italic;
+}
+#article .info .selectize-control .selectize-input > div,
+#edit .info .selectize-control .selectize-input > div {
+  background: #fff !important;
+  color: #aaa !important;
+  border: 1px solid #eee !important;
+  border-radius: 3px !important;
+}
+#article .info .circle-select,
+#edit .info .circle-select {
+  margin: 0 auto;
+  width: 200px;
+}
+#article .info .circle-select .selectize-input,
+#edit .info .circle-select .selectize-input {
+  border: 0;
+  box-shadow: none;
+}
+#article .info .circle-select .selectize-input input:before,
+#edit .info .circle-select .selectize-input input:before {
+  border: 0;
+  box-shadow: none;
+}
+#article .info .circle-select .selectize-dropdown,
+#edit .info .circle-select .selectize-dropdown {
+  border: 1px #eee solid;
+  box-shadow: none;
+}
+#article .info.fin,
+#edit .info.fin {
+  margin-top: 80px;
+  margin-bottom: 65px;
+  font-size: 24px;
+  font-style: normal;
+}
+#article .info.fin .icon-book-open,
+#edit .info.fin .icon-book-open {
+  font-size: 22px;
+  margin-right: 10px;
+}

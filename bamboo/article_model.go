@@ -152,7 +152,7 @@ func articleLike(userId string, articleId string, isLike bool) bool {
         operate = "$pull"
     }
     err = db.article.Update(
-        bson.M{"_id": bson.ObjectIdHex(articleId), "user": user},
+        bson.M{"_id": bson.ObjectIdHex(articleId)},
         bson.M{
             operate: bson.M{
                 "like": user,

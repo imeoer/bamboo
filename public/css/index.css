@@ -1,0 +1,155 @@
+#index {
+  width: 1040px;
+  height: 560px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -520px;
+  margin-top: -280px;
+}
+#index .header {
+  height: 80px;
+}
+#index .logo {
+  width: 225px;
+  height: 80px;
+  float: left;
+  background: url(../img/logo.png);
+}
+#index .form {
+  float: right;
+  margin-top: 35px;
+}
+#index .form .switch {
+  float: left;
+  margin-right: 40px;
+  margin-top: 3px;
+}
+#index .form .switch div,
+#index .form .switch span {
+  float: left;
+}
+#index .form .switch .btn {
+  color: #bbb;
+  cursor: pointer;
+}
+#index .form .switch .btn:hover {
+  opacity: 0.8;
+}
+#index .form .switch .btn.active {
+  color: #333;
+  cursor: default;
+}
+#index .form .switch .btn.active:hover {
+  opacity: 1;
+}
+#index .form .switch .icon-github-circled {
+  float: left;
+  font-size: 30px;
+  margin-right: 10px;
+  margin-top: -11px;
+  cursor: pointer;
+}
+#index .form .switch .icon-github-circled:hover {
+  color: #333;
+}
+#index .form .switch .register-btn {
+  margin-right: 10px;
+}
+#index .form .switch .login-btn {
+  margin-left: 10px;
+}
+#index .form span {
+  font-size: 16px;
+  font-weight: bold;
+}
+#index .form input {
+  font-size: 16px;
+  padding: 2px 6px;
+  border: 0;
+  width: 150px;
+  font-style: italic;
+  margin-right: 5px;
+  background-color: transparent;
+}
+#index .form .submit {
+  margin-left: 20px;
+  padding: 10px 15px;
+  background-color: transparent;
+  border: 2px #000 solid;
+  border-radius: 3px;
+  float: right;
+  margin-top: -12px;
+  width: 137px;
+  height: 45px;
+  background-image: url(../img/submit.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+#index .form .submit:hover {
+  background-color: #f4f4f4;
+}
+#index .content {
+  width: 100%;
+  height: 424px;
+  margin-top: 25px;
+  background-color: #000;
+  border-radius: 8px;
+  background: url(../img/bg.jpg);
+}
+#index .cover {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  color: #fff;
+  background: url(../img/cover.png);
+}
+#index .cover .bg-nav {
+  font-size: 24px;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  margin-right: 15px;
+  margin-bottom: 48px;
+}
+#index .cover .bg-nav .icon-btn {
+  cursor: pointer;
+  opacity: 0.6;
+}
+#index .cover .bg-nav .icon-btn:hover {
+  opacity: 0.8;
+}
+#index .cover .bg-info {
+  font-size: 14px;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  margin-left: 20px;
+  margin-bottom: 48px;
+  opacity: 0.6;
+}
+#index .footer {
+  margin-top: 10px;
+}
+#index .footer a {
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 14px;
+  color: #9c9c9c;
+}
+#index .footer a:hover {
+  color: #b1b1b1;
+}
+#index .footer .footer-left {
+  float: left;
+}
+#index .footer .footer-left a {
+  margin-right: 5px;
+}
+#index .footer .footer-right {
+  float: right;
+}
+#index .footer .footer-right a {
+  margin-left: 5px;
+}

@@ -1,0 +1,234 @@
+#edit .article {
+  height: 100%;
+  position: relative;
+  margin-bottom: 300px;
+}
+#edit .article .edit-view {
+  transition-property: opacity;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-out;
+  position: fixed;
+  margin-top: 7px;
+  opacity: 0;
+  margin-left: 664px;
+  padding-left: 40px;
+}
+#edit .article .edit-view:hover {
+  opacity: 1 !important;
+}
+#edit .article .edit-view li {
+  font-size: 16px;
+  color: #000;
+  width: 35px;
+  height: 35px;
+  line-height: 39px;
+  text-align: center;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  border-radius: 35px;
+}
+#edit .article .edit-view li.active {
+  border: 1px solid #c1c1c1;
+  background-color: #ebebeb;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
+}
+#edit .article .edit-view li.active:hover {
+  border: 1px solid #c1c1c1;
+}
+#edit .article .edit-view li:hover {
+  border: 1px solid #ddd;
+}
+#edit .article:hover .edit-view {
+  opacity: 0.3;
+}
+#edit .tool {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  padding: 40px;
+  font-size: 18px;
+}
+#edit .tool .home {
+  font-size: 28px;
+  float: left;
+  margin-top: 5px;
+  margin-right: 40px;
+}
+#edit .tool .type {
+  float: left;
+  margin-top: 10px;
+  margin-right: 60px;
+  font-size: 16px;
+}
+#edit .tool .type span {
+  cursor: pointer;
+  padding: 5px 17px;
+  margin-left: 10px;
+  color: #333;
+}
+#edit .tool .type span.selected {
+  background-color: #333;
+  color: #fff;
+}
+#edit .tool .publish {
+  padding: 5px 14px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 3px;
+  border: 2px solid #666;
+  float: right;
+}
+#edit .tool .publish .icon-book-open {
+  display: block;
+  float: left;
+  margin-top: 1px;
+  margin-right: 10px;
+}
+#edit .tool .publish:hover {
+  background-color: #111;
+}
+#edit .contenteditable.title:empty {
+  line-height: 38px;
+  padding-top: 14px;
+}
+#edit .contenteditable.title:empty:before {
+  content: "键入文章标题";
+  color: #ccc;
+  font-style: italic;
+  cursor: text;
+}
+#edit .contenteditable.content:empty {
+  line-height: 18px;
+  padding-top: 5px;
+}
+#edit .contenteditable.content:empty:before {
+  content: "键入正文...";
+  color: #ccc;
+  font-style: italic;
+  cursor: text;
+}
+#edit .toolbar {
+  position: absolute;
+  border: 2px #bbb solid;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  background-color: #eee;
+  top: 0;
+  display: none;
+  opacity: 0.3;
+  transition-property: top, opacity;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-out;
+  font-size: 34px;
+  color: #999;
+  text-align: center;
+}
+#edit .toolbar:hover {
+  opacity: 1;
+}
+#edit .toolbar:hover .type-list {
+  display: block;
+}
+#edit .toolbar .type-list {
+  display: none;
+  padding-top: 20px;
+  color: #000;
+  font-size: 16px;
+}
+#edit .toolbar .type-list .type {
+  line-height: 39px;
+  margin: 0 auto;
+  width: 35px;
+  height: 35px;
+  margin-bottom: 10px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 35px;
+  border: 2px transparent solid;
+  position: relative;
+}
+#edit .toolbar .type-list .type input.image-upload {
+  opacity: 0;
+  width: 36px;
+  display: block;
+  height: 36px;
+  position: absolute;
+  top: -6px;
+  left: -11px;
+  z-index: 1;
+}
+#edit .toolbar .type-list .type.image {
+  cursor: pointer;
+}
+#edit .toolbar .type-list .type .input-wrap {
+  display: none;
+  position: absolute;
+  padding-left: 50px;
+  margin-top: -2px;
+  top: 0;
+}
+#edit .toolbar .type-list .type input {
+  width: 350px;
+  height: 20px;
+  padding: 4px 10px;
+  border: 1px #ddd solid;
+  border-radius: 20px;
+}
+#edit .toolbar .type-list .type:hover {
+  color: #000;
+  background-color: #fff;
+  border: 2px #333 solid;
+}
+#edit .toolbar .type-list .type:hover .input-wrap {
+  display: block;
+}
+#edit img {
+  cursor: default;
+}
+#edit img:hover {
+  border: 1px #ddd solid !important;
+}
+#edit .content img.selected {
+  border: 2px #aaa solid !important;
+}
+#edit .content img::selection {
+  background: rgba(0, 0, 0, 0.1);
+}
+#edit .content img::-moz-selection {
+  background: rgba(0, 0, 0, 0.1);
+}
+#edit .content.markdown {
+  width: 664px;
+  border: 0;
+  font-size: 16px;
+  display: none;
+  background-color: transparent;
+  padding: 0;
+}
+#edit .content.markdown .placeholder-style {
+  color: #ccc;
+  font-style: italic;
+  cursor: text;
+}
+#edit .content.markdown::-webkit-input-placeholder {
+  color: #ccc;
+  font-style: italic;
+  cursor: text;
+}
+#edit .content.markdown:-moz-placeholder {
+  color: #ccc;
+  font-style: italic;
+  cursor: text;
+}
+#edit .content.markdown::-moz-placeholder {
+  color: #ccc;
+  font-style: italic;
+  cursor: text;
+}
+#edit .content.markdown:-ms-input-placeholder {
+  color: #ccc;
+  font-style: italic;
+  cursor: text;
+}
