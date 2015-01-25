@@ -11,57 +11,75 @@
         'click .tool .item': 'switch'
       },
       initialize: function() {
-        return this.diff = new diff_match_patch();
+        var that;
+        that = this;
+        that.diff = new diff_match_patch();
+        return $(window).scroll(function() {
+          var $logo, currentTop, gapTop;
+          currentTop = $(this).scrollTop();
+          $logo = that.$el.find('.logo');
+          gapTop = 60;
+          if (currentTop < gapTop) {
+            $logo.css('opacity', 1);
+          }
+          if (currentTop > gapTop) {
+            return $logo.css('opacity', 0);
+          }
+        });
       },
       getChangeRate: function(content1, content2) {
         var diffData;
         diffData = this.diff.diff_main(content1, content2);
         return (this.diff.diff_levenshtein(diffData) / content1.length) * 100;
       },
-      render: function(callback, data) {
-        var master, that;
+      render: function(callback, viewData) {
+        var that;
         that = this;
         that.callback = callback;
-        master = true;
-        if (data.name === 'user') {
-          master = false;
+        if (viewData.name === 'user') {
+          return App.user.page({
+            name: viewData.info
+          }).done(function(data) {
+            that.$el.html(template.page({
+              master: false,
+              user: data.user
+            }));
+            that.renderList(data.articles);
+            return that.callback(that.$el);
+          });
+        } else {
+          return App.user.info().done(function(data) {
+            data.master = true;
+            App.setUser(data.user);
+            if (App.getUser()) {
+              data.registered = true;
+              that.$el.html(template.page(data));
+              return that.switchTo(viewData.name);
+            } else {
+              that.$el.html(template.page(data));
+              return that.switchTo('setting');
+            }
+          });
         }
-        that.$el.html(template.page({
-          master: master,
-          id: $.localStorage('id'),
-          name: $.localStorage('name'),
-          mail: $.localStorage('mail'),
-          nick: $.localStorage('nick'),
-          motto: $.localStorage('motto'),
-          link: $.localStorage('link'),
-          avatar: $.localStorage('avatar')
-        }));
-        return this.switchTo(data.name, data.info);
       },
       "switch": function(event) {
         var $item, viewName;
         $item = $(event.currentTarget);
         viewName = $item.data('id');
+        this.switchTo(viewName);
         return workspace.navigate(viewName, {
-          trigger: true,
+          trigger: false,
           replace: true
         });
       },
-      switchTo: function(name, info) {
+      switchTo: function(name) {
         var $parent, circleView, settingView, that;
         that = this;
         if (!name) {
           name = 'main';
         }
         $parent = that.$el.find('.main');
-        if (name === 'user') {
-          App.user.page({
-            name: info
-          }).done(function(data) {
-            that.renderList(data.articles);
-            return that.callback(that.$el);
-          });
-        } else if (name === 'setting') {
+        if (name === 'setting') {
           settingView = new SettingView();
           settingView.render(function($container) {
             $parent.html($container);
@@ -74,42 +92,54 @@
             return that.callback(that.$el);
           });
         } else if (name === 'private' || name === 'public' || name === 'favarite') {
+          NProgress.start();
           App.article.list({
             filter: name
           }).done(function(data) {
-            that.renderList(data);
-            return that.callback(that.$el);
+            var editView;
+            editView = false;
+            if (name === 'private' || name === 'public') {
+              editView = true;
+            }
+            that.renderList(data, editView);
+            that.callback(that.$el);
+            return NProgress.done();
           });
         } else {
+          NProgress.start();
           App.user.timeline().done(function(data) {
             that.renderList(data);
-            return that.callback(that.$el);
+            that.callback(that.$el);
+            return NProgress.done();
           });
         }
         that.$el.find('.tool .item').removeClass('selected');
         return that.$el.find('.tool .item[data-id="' + name + '"]').addClass('selected');
       },
-      renderList: function(data) {
+      renderList: function(data, editView) {
         var that;
         that = this;
         data = _.map(data, function(item) {
           var $origin, content, firstImg;
-          $origin = $(App.mdConvert.makeHtml(item.content));
+          $origin = $(App.mdConvert.makeHtml(item.article.content));
           firstImg = $origin.find('img')[0];
           content = $origin.text();
           if (content.length > 90) {
-            item.content = content.slice(0, 90) + '...';
+            item.article.content = content.slice(0, 90) + '...';
           } else {
-            item.content = content;
+            item.article.content = content;
           }
           if (firstImg) {
-            item.thematic = firstImg.src;
+            item.article.thematic = firstImg.src;
           }
+          item.article.updated = moment(item.article.updated).fromNow();
+          item.article.circle = item.article.circle.join(' ');
           return item;
         });
         if (data.length) {
           return that.$el.find('.main').html(template.articles({
-            articles: data
+            articles: data,
+            editView: editView
           }));
         } else {
           return that.$el.find('.main').html(template.nocontent());

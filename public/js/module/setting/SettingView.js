@@ -5,15 +5,19 @@
       className: 'setting',
       events: {
         'click .write': 'write',
-        'click #mail_confirm': 'updateMail',
-        'click #link_confirm': 'updateLink',
-        'click #pass_confirm': 'updatePass',
-        'click #name_confirm': 'updateName',
+        'click .submit': 'submit',
+        'change #mail': 'updateMail',
+        'change #link': 'updateLink',
+        'change #pass': 'updatePass',
+        'change #name': 'updateName',
         'change #nick': 'updateNick',
         'change #motto': 'updateMotto',
         'change #avatar': 'updateAvatar'
       },
       initialize: function() {},
+      submit: function() {
+        return window.location.href = '/#main';
+      },
       updateValue: function(key, value) {
         return App.user.config({
           key: key,
@@ -44,15 +48,13 @@
         return this.updateValue('motto', motto);
       },
       render: function(callback) {
+        var user;
         NProgress.start();
-        this.$el.html(template.page({
-          name: $.localStorage('name'),
-          mail: $.localStorage('mail'),
-          nick: $.localStorage('nick'),
-          motto: $.localStorage('motto'),
-          link: $.localStorage('link'),
-          avatar: $.localStorage('avatar')
-        }));
+        user = App.getUser();
+        if (user) {
+          user.registered = true;
+        }
+        this.$el.html(template.page(user));
         NProgress.done();
         return callback(this.$el);
       },

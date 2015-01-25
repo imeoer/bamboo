@@ -15,77 +15,76 @@
 #main .left:hover {
   opacity: 1;
 }
-#main .left .container {
+#main .left .wrap {
   padding: 60px 60px 60px 60px;
 }
-#main .left .container div,
-#main .left .container ul {
+#main .left .wrap div,
+#main .left .wrap ul {
   text-align: right;
 }
-#main .left .container .avatar {
+#main .left .wrap .avatar {
   width: 70px;
   height: 70px;
   border-radius: 70px;
   float: right;
   clear: both;
   margin-bottom: 20px;
-  background-image: url(../img/avatar.png);
   background-size: cover;
 }
-#main .left .container .nick {
+#main .left .wrap .nick {
   margin-top: 18px;
   font-size: 16px;
   clear: both;
   text-align: right;
   width: auto;
 }
-#main .left .container .info-list {
+#main .left .wrap .info-list {
   text-align: right;
   margin-top: 50px;
 }
-#main .left .container .info-list .info-item {
+#main .left .wrap .info-list .info-item {
   margin-top: 10px;
 }
-#main .left .container .info-list .count {
+#main .left .wrap .info-list .count {
   font-size: 18px;
   font-style: italic;
 }
-#main .left .container .info-list .name {
+#main .left .wrap .info-list .name {
   font-size: 14px;
   margin-left: 5px;
   font-style: italic;
   color: #ff7800;
 }
-#main .left .container .info-list .icon {
+#main .left .wrap .info-list .icon {
   margin-left: 15px;
   font-size: 14px;
   color: #aaa;
 }
-#main .left .container .write {
+#main .left .wrap .write {
   margin-top: 50px;
   width: 100%;
   font-size: 18px;
   cursor: pointer;
   color: #aaa;
 }
-#main .left .container .write:hover {
+#main .left .wrap .write:hover {
   color: #888;
 }
-#main .left .container .write .icon {
+#main .left .wrap .write .icon {
   margin-right: 10px;
 }
-#main .left .container .menu {
+#main .left .wrap .menu {
   margin-top: 50px;
 }
-#main .left .container .menu .menu-item {
+#main .left .wrap .menu .menu-item {
   width: 100%;
   margin-bottom: 20px;
 }
-#main .left .container .menu .menu-item .icon {
+#main .left .wrap .menu .menu-item .icon {
   margin-right: 10px;
   font-size: 18px;
 }
-#main .left .container .menu .menu-item.recommend {
+#main .left .wrap .menu .menu-item.recommend {
   margin-bottom: 0;
 }
 #main .toolbar {
@@ -96,7 +95,6 @@
   width: 67px;
   height: 67px;
   border-radius: 67px;
-  background: url(../img/avatar.png) no-repeat;
 }
 #main .right {
   padding-top: 80px;
@@ -104,6 +102,14 @@
   color: #444;
   width: 664px;
   position: relative;
+}
+#main .right .intro {
+  font-size: 24px;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: bold;
+  color: #555;
 }
 #main .right .main {
   overflow: auto;
@@ -124,6 +130,37 @@
 #main .right .main .nocontent div.tip {
   margin-top: 30px;
   font-style: italic;
+}
+#main .right .user {
+  position: fixed;
+  margin-left: -270px;
+  width: 150px;
+  border-right: 1px #ccc dashed;
+  padding: 10px 20px 10px 0;
+}
+#main .right .user .avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 70px;
+  border: 1px #eee solid;
+  cursor: pointer;
+  float: right;
+}
+#main .right .user .nick {
+  text-align: right;
+  width: 100%;
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 18px;
+}
+#main .right .user .motto {
+  margin-top: 15px;
+  color: #aaa;
+  width: 100%;
+  text-align: right;
+  line-height: 22px;
+  display: inline-block;
+  font-size: 14px;
 }
 #main .right .tool {
   font-size: 18px;
@@ -204,11 +241,14 @@
   transition-duration: 0.2s;
   transition-timing-function: ease-out;
   margin-bottom: 60px;
-  overflow-x: hidden;
+  overflow: visible;
   cursor: pointer;
 }
-#main .right .article-list .article-item:hover {
-  opacity: 0.8;
+#main .right .article-list .article-item:hover .title {
+  color: #666;
+}
+#main .right .article-list .article-item:hover .tool {
+  opacity: 1;
 }
 #main .right .article-list .article-item .info {
   position: absolute;
@@ -234,11 +274,14 @@
   font-size: 14px;
 }
 #main .right .article-list .article-item .tool {
+  transition-property: opacity;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-out;
   position: absolute;
-  margin-top: 40px;
+  margin-top: 26px;
   margin-bottom: 10px;
   opacity: 0;
-  margin-left: -80px;
+  margin-left: -60px;
 }
 #main .right .article-list .article-item .tool li {
   font-size: 16px;
@@ -270,12 +313,6 @@
 #main .right .article-list .article-item .update-value .update {
   font-size: 14px;
   margin-left: 5px;
-}
-#main .right .article-list .article-item:hover .tool {
-  opacity: 1;
-}
-#main .right .article-list .article-item:hover .update-value {
-  opacity: 0;
 }
 #main .right .article-list .article-item:last-child {
   border-bottom: 0;
@@ -314,6 +351,7 @@
   color: #777;
 }
 #main .right .article-list .article-item .footer {
+  cursor: default ;
   clear: both;
   height: 40px;
   width: 100%;
@@ -332,6 +370,12 @@
   margin-right: 6px;
   float: left;
 }
+#main .right .article-list .article-item .footer .user-link {
+  color: #333;
+}
+#main .right .article-list .article-item .footer .user-link:hover {
+  opacity: 0.8;
+}
 #main .right .article-list .article-item .footer .author {
   float: left;
   font-size: 14px;
@@ -346,6 +390,10 @@
   background-image: url(../img/avatar.png);
   background-repeat: no-repeat;
   float: left;
+}
+#main .right .article-list .article-item .footer .author .updated,
+#main .right .article-list .article-item .footer .author .circle {
+  color: #aaa;
 }
 #main .right .article-list .article-item .footer .detail {
   float: right;

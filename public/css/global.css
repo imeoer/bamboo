@@ -6,12 +6,18 @@ input {
 }
 a {
   display: inline-block;
+  text-decoration: none;
+  color: #000;
 }
 body {
   min-width: 1280px;
 }
 input {
   outline: none;
+  background-color: white;
+}
+textarea {
+  background-color: white;
 }
 .icon-btn {
   cursor: pointer;
@@ -21,6 +27,9 @@ input {
 }
 .btn {
   cursor: pointer;
+}
+.hide {
+  display: none;
 }
 *:focus {
   outline: 0;

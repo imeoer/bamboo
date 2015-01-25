@@ -1,7 +1,7 @@
 (function() {
   var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  define(['backbone', 'module/article/template', 'moment'], function(Backbone, template, moment) {
+  define(['backbone', 'module/article/template'], function(Backbone, template) {
     var ArticleView;
     ArticleView = Backbone.View.extend({
       el: '#article',
@@ -9,9 +9,7 @@
         'click .icon.like': 'like',
         'click .icon.favarite': 'favarite'
       },
-      initialize: function() {
-        return moment.locale('zh-cn');
-      },
+      initialize: function() {},
       render: function(callback, articleId) {
         var that;
         that = this;

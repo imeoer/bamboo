@@ -14,16 +14,17 @@
         'keypress .toolbar .music input': 'addMusic',
         'keypress .toolbar .vedio input': 'addVideo'
       },
-      initialize: function() {},
+      initialize: function() {
+        this.toolbar = null;
+        return this["public"] = false;
+      },
       isInDomByClass: function($target, className) {
         var _ref;
-        return ((_ref = $target[0].nodeName) === 'INPUT' || _ref === 'TEXTAREA') || $target.hasClass(className) || $target.parents("." + className).length;
+        return ((_ref = $target.prop('tagName')) === 'INPUT' || _ref === 'TEXTAREA') || $target.hasClass(className) || $target.parents("." + className).length;
       },
       render: function(callback, articleId) {
         var that;
         that = this;
-        that.toolbar = null;
-        that["public"] = false;
         if (articleId === 'new') {
           that.articleId = '';
           that["public"] = false;
@@ -75,23 +76,22 @@
           showGutter: false,
           maxLines: Infinity,
           highlightGutterLine: true,
-          showPrintMargin: false,
-          enableSnippets: false
+          showPrintMargin: false
         });
         aceEditor.getSession().setUseWrapMode(true);
         this.aceEditor = aceEditor;
         $(document).on('mouseup', function(event) {
-          var $target;
+          var $target, _ref;
           $target = $(event.target);
-          if (!(that.isInDomByClass($target, 'content') || that.isInDomByClass($target, 'title') || that.isInDomByClass($target, 'medium-editor-toolbar'))) {
-            that.aceEditor.focus();
-            return that.$el.find('.content.visual').focusEnd();
+          if (((_ref = $target.prop('tagName')) === 'BODY' || _ref === 'HTML') || $target.hasClass('container') || $target.hasClass('article')) {
+            if (that.$el.find('.content.visual').is(':visible')) {
+              return that.$el.find('.content.visual').focusEnd();
+            } else {
+              return that.aceEditor.focus();
+            }
           }
         });
         return this.initToolbar();
-      },
-      toImg: function(canvas) {
-        return $('#xxx')[0].src = canvas.toDataURL();
       },
       publish: function() {
         var circles, content, originHTML, that, title;
@@ -168,7 +168,7 @@
             oFReader = new FileReader();
             oFReader.readAsDataURL(file);
             return oFReader.onload = function(oFREvent) {
-              var appendDom, insertRet;
+              var $preview, appendDom, insertRet;
               if (that.$focusDom && that.$focusDom.length) {
                 appendDom = '<img class="preview" data-id="' + id + '" />';
                 if (that.$focusDom.prop('tagName') !== 'P') {
@@ -180,7 +180,10 @@
                 if (!insertRet) {
                   that.$focusDom.html(appendDom);
                 }
-                return that.$focusDom.find('.preview')[0].src = oFREvent.target.result;
+                $preview = that.$focusDom.find('.preview');
+                $preview[0].src = oFREvent.target.result;
+                $preview.parents('p').wrap("<div class='uploading'></div>");
+                return $preview.parents('.uploading').append("<div class='progress'></div>");
               }
             };
           },
@@ -189,10 +192,32 @@
             if (data.status) {
               fileName = data.result;
               $imgDom = $('img.preview[data-id="' + id + '"]');
+              $imgDom.siblings('.progress').remove();
+              $imgDom.parents('p').unwrap('.uploading');
               return $imgDom[0].src = "" + App.baseURL + "/" + fileName;
+            } else {
+              that.onUploadError(id);
+              return App.notify(data.result);
             }
+          },
+          onUploadProgress: function(id, progress) {
+            var $imgDom, $progress, imgHeight, progessHeight;
+            $imgDom = $('img.preview[data-id="' + id + '"]');
+            $progress = $imgDom.parents('.uploading').find('.progress');
+            imgHeight = $imgDom.height();
+            progessHeight = progress * imgHeight;
+            return $progress.height(imgHeight - progessHeight);
+          },
+          onUploadError: function(id, message) {
+            that.onUploadError(id);
+            return App.notify("网络或内部错误，图片上传失败");
           }
         });
+      },
+      onUploadError: function(id) {
+        var $imgDom;
+        $imgDom = $('img.preview[data-id="' + id + '"]');
+        return $imgDom.parents('.uploading').remove();
       },
       modeSwitch: function(event) {
         var $markdown, $target, $visual, contentHtml;

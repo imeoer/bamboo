@@ -136,6 +136,7 @@
   padding-top: 20px;
   color: #000;
   font-size: 16px;
+  font-style: normal;
 }
 #edit .toolbar .type-list .type {
   line-height: 39px;
@@ -184,11 +185,34 @@
 #edit .toolbar .type-list .type:hover .input-wrap {
   display: block;
 }
+#edit .toolbar .type-list .type i.code-icon {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 35px !important;
+}
 #edit img {
   cursor: default;
 }
 #edit img:hover {
   border: 1px #ddd solid !important;
+}
+#edit .content .uploading {
+  position: relative;
+}
+#edit .content .uploading .progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0;
+  z-index: 1;
+  top: 0;
+  background-color: #fff;
+  opacity: 0.7;
+  transition-property: height;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
 }
 #edit .content img.selected {
   border: 2px #aaa solid !important;

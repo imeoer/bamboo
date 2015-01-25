@@ -1,8 +1,10 @@
 (function() {
-  define([], function() {
+  define(['moment'], function(moment) {
     var AppModel;
     AppModel = Backbone.Model.extend({
-      initialize: function() {},
+      initialize: function() {
+        return moment.locale('zh-cn');
+      },
       mdConvert: new Markdown.Converter(),
       notify: function(info) {
         var $notify;
@@ -15,7 +17,7 @@
           return $notify.removeClass('show');
         }, 2000);
       },
-      baseURL: "http://" + location.hostname + ":8888",
+      baseURL: "http://" + location.hostname,
       circles: [
         {
           name: "电影",
@@ -75,6 +77,52 @@
           icon: "handbag"
         }
       ],
+      setUser: function(data) {
+        if (data) {
+          $.localStorage('id', data.id);
+          $.localStorage('name', data.name);
+          $.localStorage('token', data.token);
+          $.localStorage('avatar', data.avatar);
+          $.localStorage('link', data.link);
+          $.localStorage('mail', data.mail);
+          $.localStorage('motto', data.motto);
+          return $.localStorage('nick', data.nick);
+        } else {
+          $.removeLocalStorage('id');
+          $.removeLocalStorage('name');
+          $.removeLocalStorage('token');
+          $.removeLocalStorage('avatar');
+          $.removeLocalStorage('link');
+          $.removeLocalStorage('mail');
+          $.removeLocalStorage('motto');
+          return $.removeLocalStorage('nick');
+        }
+      },
+      getUser: function() {
+        var data, invalid;
+        data = {
+          id: $.localStorage('id'),
+          token: $.localStorage('token'),
+          name: $.localStorage('name'),
+          mail: $.localStorage('mail'),
+          nick: $.localStorage('nick'),
+          motto: $.localStorage('motto'),
+          link: $.localStorage('link'),
+          avatar: $.localStorage('avatar')
+        };
+        invalid = false;
+        _.each(data, function(value, key) {
+          if (key === 'id' || key === 'token' || key === 'name' || key === 'mail' || key === 'nick' || key === 'motto' || key === 'avatar') {
+            if (!value) {
+              return invalid = true;
+            }
+          }
+        });
+        if (invalid) {
+          return null;
+        }
+        return data;
+      },
       user: {
         login: function(data) {
           return AppModel.apiRequest('POST', '/user/login', ['mail', 'pass'], data);
@@ -93,6 +141,9 @@
         },
         page: function(data) {
           return AppModel.apiRequest('POST', '/user/page', ['name'], data);
+        },
+        check_token: function(data) {
+          return AppModel.apiRequest('POST', '/user/check_token', []);
         }
       },
       article: {

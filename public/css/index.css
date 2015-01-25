@@ -11,52 +11,83 @@
   height: 80px;
 }
 #index .logo {
-  width: 225px;
-  height: 80px;
+  width: 174px;
+  height: 75px;
   float: left;
-  background: url(../img/logo.png);
+  background: url(../img/logo.png) no-repeat;
+}
+#index .author {
+  right: 200px;
+  top: 17px;
+  position: absolute;
+}
+#index .author .avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  border: 1px #eee solid;
+  float: left;
+}
+#index .author .author-info {
+  float: left;
+  margin-top: 9px;
+  margin-left: 16px;
+}
+#index .author .author-info .nick {
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+}
+#index .author .author-info .mail {
+  margin-top: 0px;
+  color: #aaa;
+  line-height: 22px;
+  font-size: 14px;
 }
 #index .form {
   float: right;
   margin-top: 35px;
 }
-#index .form .switch {
+#index .form .login {
+  float: right;
+}
+#index .form .login .switch {
   float: left;
   margin-right: 40px;
   margin-top: 3px;
 }
-#index .form .switch div,
-#index .form .switch span {
+#index .form .login .switch div,
+#index .form .login .switch span {
   float: left;
 }
-#index .form .switch .btn {
+#index .form .login .switch .btn {
   color: #bbb;
   cursor: pointer;
 }
-#index .form .switch .btn:hover {
+#index .form .login .switch .btn:hover {
   opacity: 0.8;
 }
-#index .form .switch .btn.active {
+#index .form .login .switch .btn.active {
   color: #333;
   cursor: default;
 }
-#index .form .switch .btn.active:hover {
+#index .form .login .switch .btn.active:hover {
   opacity: 1;
 }
-#index .form .switch .icon-github-circled {
+#index .form .login .switch .icon-github-circled {
   float: left;
   font-size: 30px;
   margin-right: 10px;
   margin-top: -11px;
   cursor: pointer;
 }
-#index .form .switch .icon-github-circled:hover {
+#index .form .login .switch .icon-github-circled:hover {
   color: #333;
 }
-#index .form .switch .register-btn {
+#index .form .login .switch .register-btn {
   margin-right: 10px;
 }
-#index .form .switch .login-btn {
+#index .form .login .switch .login-btn {
   margin-left: 10px;
 }
 #index .form span {

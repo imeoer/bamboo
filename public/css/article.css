@@ -11,13 +11,16 @@
 #edit .meta .author {
   float: left;
 }
+#article .meta .author:hover,
+#edit .meta .author:hover {
+  opacity: 0.9;
+}
 #article .meta .author .avatar,
 #edit .meta .author .avatar {
   width: 67px;
   height: 67px;
   border-radius: 67px;
   border: 1px #eee solid;
-  cursor: pointer;
   float: left;
 }
 #article .meta .author .author-info,
@@ -56,14 +59,14 @@
 }
 #article .article,
 #edit .article {
-  padding-top: 110px;
+  padding-top: 100px;
 }
 #article .article .author,
 #edit .article .author {
   position: absolute;
-  margin-left: -240px;
+  margin-left: -270px;
   width: 150px;
-  border-right: 1px #bbb dashed;
+  border-right: 1px #ccc dashed;
   padding: 10px 20px 10px 0;
 }
 #article .article .author .avatar,
@@ -72,7 +75,6 @@
   height: 70px;
   border-radius: 70px;
   border: 1px #eee solid;
-  cursor: pointer;
   float: right;
 }
 #article .article .author .nick,
@@ -119,7 +121,6 @@
 }
 #article .article .content,
 #edit .article .content {
-  font-family: Menlo, "Ubuntu Mono", Consolas, "Courier New", Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
   font-size: 16px;
   letter-spacing: 1px;
   line-height: 1.7;

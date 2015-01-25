@@ -15,6 +15,7 @@
         NProgress.start();
         return App.user.info().done(function(data) {
           var circles;
+          data = data.user;
           data.circle = data.circle || [];
           circles = _.map(App.circles, function(circle) {
             var _ref;

@@ -11,11 +11,14 @@
       render: function(callback, data) {
         var that;
         that = this;
-        this.$el.html(template.page());
+        that.user = App.getUser();
+        that.$el.html(template.page({
+          user: that.user
+        }));
         if (data === 'login') {
-          this["switch"]('login');
+          that["switch"]('login');
         } else if (data === 'register') {
-          this["switch"]('register');
+          that["switch"]('register');
         }
         _.defer(function() {
           return that.$el.find('.mail-input').focus();
@@ -43,6 +46,26 @@
         }
       },
       submit: function() {
+        var that;
+        that = this;
+        if (that.user) {
+          return App.user.check_token().done(function() {
+            return workspace.navigate('main', {
+              trigger: true,
+              replace: false
+            });
+          }).fail(function() {
+            App.notify("账户登录失效，请重新登录");
+            App.setUser(null);
+            that.user = null;
+            that.$el.find('.author').hide();
+            return that.$el.find('.login').show();
+          });
+        } else {
+          return that.submitHandle();
+        }
+      },
+      submitHandle: function() {
         var $mail, $pass, invoke, mail, pass, that;
         that = this;
         $mail = that.$el.find('.mail-input');
@@ -69,20 +92,18 @@
           }
         }
         NProgress.start();
-        invoke = this.isRegisterState ? App.user.register : App.user.login;
+        invoke = that.isRegisterState ? App.user.register : App.user.login;
         return invoke({
           mail: mail,
           pass: pass
         }).done(function(data) {
-          $.localStorage('id', data.id);
-          $.localStorage('name', data.name);
-          $.localStorage('token', data.token);
-          $.localStorage('avatar', data.avatar);
-          $.localStorage('link', data.link);
-          $.localStorage('mail', data.mail);
-          $.localStorage('motto', data.motto);
-          $.localStorage('nick', data.nick);
-          return workspace.navigate('main', {
+          var page;
+          App.setUser(data);
+          page = 'main';
+          if (that.isRegisterState) {
+            page = 'setting';
+          }
+          return workspace.navigate(page, {
             trigger: true,
             replace: false
           });

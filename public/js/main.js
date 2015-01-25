@@ -80,8 +80,10 @@
             that.cachedView[viewName] = new View();
           }
           view = that.cachedView[viewName];
-          $('.container').hide().empty();
           return view.render(function($container) {
+            var containerId;
+            containerId = $container.attr('id');
+            $(".container:not(#" + containerId + ")").hide().empty();
             $container.fadeIn();
             return NProgress.done();
           }, data);
