@@ -17,7 +17,7 @@ var db struct {
 
 func init() {
     // connect db
-    session, err := mgo.Dial("127.0.0.1:27017")
+    session, err := mgo.Dial("mongodb:27017")
     if err != nil {
         fmt.Println("DB connect failed")
         os.Exit(1)
