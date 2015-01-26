@@ -194,7 +194,7 @@
               $imgDom = $('img.preview[data-id="' + id + '"]');
               $imgDom.siblings('.progress').remove();
               $imgDom.parents('p').unwrap('.uploading');
-              return $imgDom[0].src = "" + App.baseURL + "/" + fileName;
+              return $imgDom[0].src = "/images/" + fileName;
             } else {
               that.onUploadError(id);
               return App.notify(data.result);
