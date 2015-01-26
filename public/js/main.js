@@ -84,6 +84,7 @@
             var containerId;
             containerId = $container.attr('id');
             $(".container:not(#" + containerId + ")").hide().empty();
+            $('body').scrollTop(0);
             $container.fadeIn();
             return NProgress.done();
           }, data);

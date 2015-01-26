@@ -10,16 +10,6 @@
 #index .header {
   height: 80px;
 }
-#index .loading {
-  position: absolute;
-  top: 50%;
-  margin-top: -20px;
-  right: 0;
-  left: 0;
-  text-align: center;
-  color: #ccc;
-  font-style: italic;
-}
 #index .logo {
   width: 174px;
   height: 75px;
@@ -192,5 +182,6 @@
   float: right;
 }
 #index .footer .footer-right a {
+  float: right;
   margin-left: 5px;
 }

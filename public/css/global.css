@@ -5,7 +5,7 @@ input {
   font-family: Menlo, "Ubuntu Mono", Consolas, "Courier New", Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
 }
 a {
-  display: inline-block;
+  display: block;
   text-decoration: none;
   color: #000;
 }
@@ -113,6 +113,39 @@ input:-ms-input-placeholder {
 }
 #notify.show {
   opacity: 1;
+}
+a.home-link {
+  width: 35px;
+  height: 35px;
+  background: url(../img/logo_small.png) no-repeat;
+  background-size: cover;
+  position: absolute;
+  left: 40px;
+  top: 40px;
+}
+a.home-link:hover {
+  opacity: 0.8;
+}
+.loading {
+  position: absolute;
+  top: 38%;
+  right: 0;
+  left: 0;
+}
+.loading .loading-icon {
+  margin: 0 auto;
+  width: 35px;
+  height: 35px;
+  background: url(../img/logo_small.png) no-repeat;
+  background-size: cover;
+}
+.loading .loading-msg {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+  color: #aaa;
+  font-style: italic;
 }
 .tipsy {
   font-size: 12px;

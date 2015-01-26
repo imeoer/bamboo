@@ -197,8 +197,6 @@
         }).fail(function(data) {
           App.notify('服务端或网络异常');
           return returnDeferred.reject('服务端或网络异常');
-        }).always(function() {
-          return NProgress.done();
         });
         return returnDeferred;
       }

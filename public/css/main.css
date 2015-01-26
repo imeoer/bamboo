@@ -282,6 +282,7 @@
   margin-bottom: 10px;
   opacity: 0;
   margin-left: -60px;
+  width: 70px;
 }
 #main .right .article-list .article-item .tool li {
   font-size: 16px;
@@ -299,6 +300,9 @@
 #main .right .article-list .article-item .tool li:hover {
   color: #fff;
   background-color: #000;
+}
+#main .right .article-list .article-item .tool li:hover a {
+  color: #fff;
 }
 #main .right .article-list .article-item .update-value {
   position: absolute;
@@ -380,6 +384,10 @@
   float: left;
   font-size: 14px;
   line-height: 24px;
+}
+#main .right .article-list .article-item .footer .author .user-link {
+  float: left;
+  margin-right: 15px;
 }
 #main .right .article-list .article-item .footer .author .avatar {
   width: 20px;

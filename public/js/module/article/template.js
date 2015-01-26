@@ -9,7 +9,7 @@ function program1(depth0,data) {
   return "-empty";
   }
 
-  buffer += "\n\n<div class=\"article\">\n    <div class=\"author\">\n        <img class=\"avatar\" src=\""
+  buffer += "\n\n<a class=\"home-link\" href=\"/#main\"></a>\n<div class=\"article\">\n    <div class=\"author\">\n        <img class=\"avatar\" src=\""
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.user)),stack1 == null || stack1 === false ? stack1 : stack1.avatar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\" />\n        <div class=\"nick\">"
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.user)),stack1 == null || stack1 === false ? stack1 : stack1.nick)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))

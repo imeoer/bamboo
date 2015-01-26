@@ -4,10 +4,7 @@
     MainView = Backbone.View.extend({
       el: '#main',
       events: {
-        'click .write': 'write',
         'click .article-item .remove': 'remove',
-        'click .article-item .edit': 'edit',
-        'click .article-item': 'view',
         'click .tool .item': 'switch'
       },
       initialize: function() {
@@ -54,10 +51,10 @@
             if (App.getUser()) {
               data.registered = true;
               that.$el.html(template.page(data));
-              return that.switchTo(viewData.name);
+              return that.switchTo(viewData.name, true);
             } else {
               that.$el.html(template.page(data));
-              return that.switchTo('setting');
+              return that.switchTo('setting', true);
             }
           });
         }
@@ -66,18 +63,18 @@
         var $item, viewName;
         $item = $(event.currentTarget);
         viewName = $item.data('id');
-        this.switchTo(viewName);
-        return workspace.navigate(viewName, {
-          trigger: false,
-          replace: true
-        });
+        return this.switchTo(viewName, false);
       },
-      switchTo: function(name) {
+      switchTo: function(name, full) {
         var $parent, circleView, settingView, that;
         that = this;
         if (!name) {
           name = 'main';
         }
+        workspace.navigate(name, {
+          trigger: false,
+          replace: true
+        });
         $parent = that.$el.find('.main');
         if (name === 'setting') {
           settingView = new SettingView();
@@ -145,11 +142,6 @@
           return that.$el.find('.main').html(template.nocontent());
         }
       },
-      write: function() {
-        return workspace.navigate('edit/new', {
-          trigger: true
-        });
-      },
       remove: function(event) {
         var $articleItem, articleId;
         $articleItem = $(event.currentTarget).parents('.article-item');
@@ -162,22 +154,6 @@
           return null;
         });
         return false;
-      },
-      edit: function(event) {
-        var $articleItem, articleId;
-        $articleItem = $(event.currentTarget).parents('.article-item');
-        articleId = $articleItem.data('id');
-        return workspace.navigate('edit/' + articleId, {
-          trigger: true
-        });
-      },
-      view: function(event) {
-        var $articleItem, articleId;
-        $articleItem = $(event.currentTarget);
-        articleId = $articleItem.data('id');
-        return workspace.navigate('article/' + articleId, {
-          trigger: true
-        });
       }
     });
     return MainView;

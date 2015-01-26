@@ -9,7 +9,7 @@ function program1(depth0,data) {
   return "selected";
   }
 
-  buffer += "\n\n<div class=\"tool\">\n    <div class=\"home\">\n        <i class=\"icon-layers\"></i><span></span>\n    </div>\n    <div class=\"publish btn\">\n        <i class=\"icon-book-open\"></i><span>发布</span>\n    </div>\n    <div class=\"type\">\n        <span class=\"private ";
+  buffer += "\n\n<div class=\"tool\">\n    <a class=\"home\" href=\"/#main\">\n        <i class=\"icon-layers\"></i><span></span>\n    </a>\n    <div class=\"publish btn\">\n        <i class=\"icon-book-open\"></i><span>发布</span>\n    </div>\n    <div class=\"type\">\n        <span class=\"private ";
   stack1 = helpers.unless.call(depth0, ((stack1 = (depth0 && depth0.article)),stack1 == null || stack1 === false ? stack1 : stack1['public']), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\" data-id=\"private\">私有</span>\n        <span class=\"public ";

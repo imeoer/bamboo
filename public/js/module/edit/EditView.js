@@ -183,7 +183,7 @@
                 $preview = that.$focusDom.find('.preview');
                 $preview[0].src = oFREvent.target.result;
                 $preview.parents('p').wrap("<div class='uploading'></div>");
-                return $preview.parents('.uploading').append("<div class='progress'></div>");
+                return $preview.before("<div class='progress'></div>");
               }
             };
           },
@@ -205,7 +205,7 @@
             $imgDom = $('img.preview[data-id="' + id + '"]');
             $progress = $imgDom.parents('.uploading').find('.progress');
             imgHeight = $imgDom.height();
-            progessHeight = progress * imgHeight;
+            progessHeight = progress / 100 * imgHeight;
             return $progress.height(imgHeight - progessHeight);
           },
           onUploadError: function(id, message) {
@@ -310,9 +310,10 @@
         }
       },
       edit: function() {
-        return workspace.navigate('edit', {
+        workspace.navigate('edit', {
           trigger: true
         });
+        return false;
       }
     });
     return EditView;
