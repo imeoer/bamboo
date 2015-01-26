@@ -5,6 +5,7 @@ import (
     "regexp"
     "encoding/json"
     "net/mail"
+    "time"
 )
 
 /* helper method */
@@ -34,6 +35,7 @@ func PreHandle(ctx *ink.Context) {
 }
 
 func returnRet(ctx *ink.Context, status bool, result interface{}) {
+    time.Sleep(1 * time.Second)
     data := Map{
         "status": status,
         "result": result,
