@@ -18,7 +18,7 @@ define ['moment'], (moment) ->
                 $notify.removeClass('show')
             , 2000
 
-        baseURL: "http://#{location.hostname}:8888"
+        baseURL: "http://#{location.hostname}"
 
         circles: [
             {
