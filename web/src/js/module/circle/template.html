@@ -1,0 +1,14 @@
+<!-- page -->
+
+<ul class="circle-list">
+    {{#each this}}
+    <li class="circle-item {{#if focused}}focused{{/if}}" data-name="{{name}}">
+        <div class="info">
+            <span aria-hidden="true" class="icon icon-{{icon}}"></span>
+            <div class="name">{{name}}</div>
+            <div class="description">{{desc}}</div>
+            <div class="focus"><i class="icon icon-font-ok"></i></div>
+        </div>
+    </li>
+    {{/each}}
+</ul>

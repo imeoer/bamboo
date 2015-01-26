@@ -1,0 +1,92 @@
+<!-- page -->
+
+<article class="page-setting">
+    <div class="setting-group">
+        <div class="head">
+            <span class="main">账户名称</span>
+            <span class="sub">WEBSITE</span>
+        </div>
+        <div class="content content-padding">
+            <div class="input-wrap">
+                <input id="name" placeholder="将作为纸小墨主页URL地址" value="{{name}}" />
+                <!-- <div id="name_confirm" class="confirm">确认</div> -->
+            </div>
+        </div>
+    </div>
+    {{#if registered}}
+    <div class="setting-group">
+        <div class="head">
+            <span class="main">电子邮箱</span>
+            <span class="sub">EMAIL</span>
+        </div>
+        <div class="content content-padding">
+            <div class="input-wrap">
+                <input id="mail" placeholder="填写电子邮箱地址" value="{{mail}}" />
+                <!-- <div id="mail_confirm" class="confirm">确认</div> -->
+            </div>
+        </div>
+    </div>
+    {{/if}}
+    <div class="setting-group">
+        <div class="head">
+            <span class="main">基本信息</span>
+            <span class="sub">BASIC</span>
+        </div>
+        <div class="content content-padding">
+            <div class="avatar">
+                <input id="avatar" type="file" multiple="multiple">
+                <img class="preview" src="{{avatar}}" />
+            </div>
+            <!-- <div class="avatar"></div> -->
+            <div class="info">
+                <input id="nick" class="nick" placeholder="昵称" value="{{nick}}" />
+                <!-- <div class="motto contenteditable" contenteditable></div> -->
+            </div>
+        </div>
+    </div>
+    <div class="setting-group">
+        <div class="head">
+            <span class="main">个人简序</span>
+            <span class="sub">PERSON</span>
+        </div>
+        <textarea id="motto" class="content motto" placeholder="+ 编辑个人简介">{{motto}}</textarea>
+    </div>
+    <div class="setting-group">
+        <div class="head">
+            <span class="main">社交账户</span>
+            <span class="sub">SOCIAL</span>
+        </div>
+        <div class="content content-padding">
+            <div class="input-wrap">
+                <input id="link" placeholder="个人网站 / 微博 / 豆瓣 / 知乎 / Github / Dribbble / Pixiv" value="{{link}}" />
+                <!-- <div id="link_confirm" class="confirm">确认</div> -->
+            </div>
+        </div>
+    </div>
+    {{#if registered}}
+    <div class="setting-group">
+        <div class="head">
+            <span class="main">密码设置</span>
+            <span class="sub">PASSWORD</span>
+        </div>
+        <div class="content content-padding">
+            <div class="input-wrap password">
+                <span class="input-split">/</span><input id="cur_pass" type="password" placeholder="当前密码" />
+                <span class="input-split">/</span><input id="new_pass" type="password" placeholder="新密码" />
+                <span class="input-split">/</span><input id="rep_pass" type="password" placeholder="新密码确认" />
+                <!-- <div id="pass_confirm" class="confirm">确认</div> -->
+            </div>
+        </div>
+    </div>
+    <div class="setting-group">
+        <div class="head">
+            <span class="main">销毁账户</span>
+            <span class="sub">ACCOUNT</span>
+        </div>
+        <div class="content preface">删除所有文章后方可销毁该账户</div>
+    </div>
+    {{/if}}
+    {{#unless registered}}
+        <div class="submit">完成设置</div>
+    {{/unless}}
+</article>

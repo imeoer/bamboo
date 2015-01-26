@@ -1,0 +1,203 @@
+// login and register
+
+@mainWidth: 1040px;
+@mainHeight: 560px;
+@placeholderColor: #d7d7d7;
+
+#index {
+    width: @mainWidth;
+    height: @mainHeight;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -@mainWidth / 2;
+    margin-top: -@mainHeight / 2;
+    // display: none;
+    .header {
+        height: 80px;
+    }
+
+    .logo {
+        width: 174px;
+        height: 75px;
+        float: left;
+        background: url(../img/logo.png) no-repeat;
+    }
+
+	.author {
+		// float: left;
+        right: 200px;
+        top: 17px;
+        position: absolute;
+		.avatar {
+			width: 50px;
+			height: 50px;
+			border-radius: 50px;
+			border: 1px #eee solid;
+			float: left;
+		}
+		.author-info {
+			float: left;
+			margin-top: 9px;
+			margin-left: 16px;
+			.nick {
+				font-size: 18px;
+				font-weight: bold;
+				color: #555;
+			}
+			.mail {
+				margin-top: 0px;
+				color: #aaa;
+				// width: 100%;
+				// text-align: right;
+				line-height: 22px;
+				// display: inline-block;
+				font-size: 14px;
+			}
+		}
+	}
+
+    .form {
+        float: right;
+        margin-top: 35px;
+        .login {
+            float: right;
+            .switch {
+                float: left;
+                margin-right: 40px;
+                margin-top: 3px;
+                div, span {
+                    float: left;
+                }
+                .btn {
+                    color: #bbb;
+                    cursor: pointer;
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+                .btn.active {
+                    color: #333;
+                    cursor: default;
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+                .icon-github-circled {
+                    float: left;
+                    font-size: 30px;
+                    margin-right: 10px;
+                    margin-top: -11px;
+                    cursor: pointer;
+                    &:hover {
+                        color: #333;
+                    }
+                }
+                .register-btn {
+                    margin-right: 10px;
+                }
+                .login-btn {
+                    margin-left: 10px;
+                }
+            }
+        }
+        span {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        input {
+            font-size: 16px;
+            padding: 2px 6px;
+            border: 0;
+            width: 150px;
+            font-style: italic;
+            margin-right: 5px;
+            background-color: transparent;
+        }
+        .submit {
+            margin-left: 20px;
+            padding: 10px 15px;
+            background-color: transparent;
+            border: 2px #000 solid;
+            border-radius: 3px;
+            float: right;
+            margin-top: -12px;
+            width: 137px;
+            height: 45px;
+            background-image: url(../img/submit.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            cursor: pointer;
+            &:hover {
+                background-color: #f4f4f4;
+            }
+        }
+    }
+
+    .content {
+        width: 100%;
+        height: 424px;
+        margin-top: 25px;
+        background-color: #000;
+        border-radius: 8px;
+        background: url(../img/bg.jpg);
+    }
+
+    .cover {
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        color: #fff;
+        background: url(../img/cover.png);
+        .bg-nav {
+            font-size: 24px;
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+            margin-right: 15px;
+            margin-bottom: 48px;
+            .icon-btn {
+                cursor: pointer;
+                opacity: 0.6;
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+        }
+        .bg-info {
+            font-size: 14px;
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            margin-left: 20px;
+            margin-bottom: 48px;
+            opacity: 0.6;
+        }
+    }
+
+    .footer {
+        margin-top: 10px;
+        a {
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 14px;
+            color: #9c9c9c;
+            &:hover {
+                color: #b1b1b1;
+            }
+        }
+        .footer-left {
+            float: left;
+            a {
+                margin-right: 5px;
+            }
+        }
+        .footer-right {
+            float: right;
+            a {
+                float: right;
+                margin-left: 5px;
+            }
+        }
+    }
+}

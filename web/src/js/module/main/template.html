@@ -1,0 +1,146 @@
+<!-- page -->
+
+{{#unless master}}<a class="home-link" href="/#main"></a>{{/unless}}
+{{#if master}}
+<div class="left">
+    {{#if registered}}
+    <div class="wrap">
+        <div class="avatar" style="background-image:url({{user.avatar}});"></div>
+        <div class="nick">{{user.nick}}</div>
+        <ul class="info-list">
+            <li class="info-item">
+                <span class="count">{{article}}</span>
+                <span class="name">文章</span>
+                <span aria-hidden="true" class="icon icon-book-open"></span>
+            </li>
+            <li class="info-item">
+                <span class="count">{{favarite}}</span>
+                <span class="name">收藏</span>
+                <span aria-hidden="true" class="icon icon-drawer"></span>
+            </li>
+            <li class="info-item">
+                <span class="count">{{user.circle.length}}</span>
+                <span class="name">圈子</span>
+                <span aria-hidden="true" class="icon icon-badge"></span>
+            </li>
+            <li class="info-item">
+                <span class="count">0</span>
+                <span class="name">阅读</span>
+                <span aria-hidden="true" class="icon icon-speech"></span>
+            </li>
+            <li class="info-item">
+                <span class="count">0</span>
+                <span class="name">文字</span>
+                <span aria-hidden="true" class="icon icon-list"></span>
+            </li>
+        </ul>
+        <a class="write" href="/#edit/new"><span aria-hidden="true" class="icon icon-book-open"></span>撰写文章</a>
+        <!-- <ul class="menu">
+            <li class="menu-item">
+                <span aria-hidden="true" class="icon icon-bubbles"></span>
+                <span class="name">关注动态</span>
+            </li>
+            <li class="menu-item">
+                <span aria-hidden="true" class="icon icon-layers"></span>
+                <span class="name">发现兴趣</span>
+            </li>
+            <li class="menu-item recommend">
+                <span aria-hidden="true" class="icon icon-badge"></span>
+                <span class="name">随机推荐</span>
+            </li>
+        </ul> -->
+    </div>
+    {{/if}}
+</div>
+{{/if}}
+<div class="right">
+    <!-- <div class="title"><span aria-hidden="true" class="icon icon-bubbles"></span>发现兴趣</div> -->
+    <div class="logo"></div>
+    {{#if master}}
+    {{#if registered}}
+    <div class="tool">
+        <div class="item" data-id="main">
+            <i class="icon-bubbles"></i>
+            <span class="name">动态</span>
+        </div>
+        <div class="item" data-id="private">
+            <i class="icon-clock"></i>
+            <span class="name">私有</span>
+            <span class="count">(12)</span>
+        </div>
+        <div class="item" data-id="public">
+            <i class="icon-book-open"></i>
+            <span class="name">公开</span>
+            <span class="count">(34)</span>
+        </div>
+        <div class="item" data-id="favarite">
+            <i class="icon-drawer"></i>
+            <span class="name">收藏</span>
+        </div>
+        <div class="item" data-id="setting">
+            <i class="icon-settings"></i>
+            <span class="name">设置</span>
+        </div>
+        <div class="item" data-id="circle">
+            <i class="icon-badge"></i>
+            <span class="name">圈子</span>
+            <span class="count">(34)</span>
+        </div>
+    </div>
+    {{else}}
+    <div class="intro">完善您的账户信息</div>
+    {{/if}}
+    {{else}}
+    <div class="user">
+        <img class="avatar" src="{{user.avatar}}" />
+        <div class="author-info">
+            <div class="nick">{{user.nick}}</div>
+            <div class="motto">{{user.motto}}</div>
+        </div>
+    </div>
+    {{/if}}
+    <div class="main"></div>
+</div>
+
+<!-- articles -->
+
+<ul class="article-list">
+    {{#each articles}}
+    <li class="article-item" data-id="{{article.id}}">
+        {{#if article.thematic}}<a href="/#article/{{article.id}}" class="thematic" style="background-image: url({{article.thematic}});"></a>{{/if}}
+        {{#if ../editView}}
+        <ul class="tool">
+            <li class="edit"><a href="/#edit/{{article.id}}"><i class="icon-note"></a></i></li>
+            <li class="remove"><i class="icon-trash"></i></li>
+        </ul>
+        {{/if}}
+        <!-- <span class="update-value">45%<span class="update">更新</span></span> -->
+        <div class="card">
+            <a class="title" href="/#article/{{article.id}}">{{article.title}}</a>
+            <a class="preview" href="/#article/{{article.id}}">{{{article.content}}}</a>
+            <div class="footer">
+                <div class="author">
+                    <a class="user-link" href="/#user/{{user.name}}">
+                        <div class="avatar" style="background-image:url({{user.avatar}});"></div>
+                        <span class="nick">{{user.nick}}</span>
+                    </a>
+                    <span class="updated">{{article.updated}}</span>
+                    <span class="circle">{{article.circle}}</span>
+                </div>
+                <div class="detail">
+                    <span class="item"><span aria-hidden="true" class="icon icon-book-open"></span>{{#if article.read}}{{article.read}}{{else}}0{{/if}}</span>
+                    <span class="item"><span aria-hidden="true" class="icon icon-heart"></span>{{#if article.like}}{{article.like.length}}{{else}}0{{/if}}</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    {{/each}}
+</ul>
+
+<!-- nocontent -->
+
+<div class="nocontent">
+    <span aria-hidden="true" class="icon icon-drawer"></span>
+    <div>尚无内容</div>
+    <div class="tip">阅读「纸小墨」指导</div>
+</div>

@@ -1,0 +1,493 @@
+#main {
+    // display: none;
+    // padding: 50px 0px 50px 0px;
+    margin: 0 auto;
+    margin-bottom: 120px;
+    // max-width: 900px;
+
+	.left {
+        // background-color: #000;
+        // opacity: 0.5;
+		height: 200px;
+		// width: 250px;
+		height: 100%;
+		// left: 0;
+        // margin-left: -300px;
+		bottom: 0;
+        top: 0;
+		position: fixed;
+        // padding: 40px;
+        border-right: 1px dashed #eee;
+        display: flex;
+        align-items: center;
+        &:hover {
+            opacity: 1;
+        }
+		.wrap {
+            // position: absolute;
+            padding: 60px 60px 60px 60px;
+            // padding: 20px 20px 20px 0;
+
+			div, ul {
+				text-align: right;
+			}
+            .avatar {
+                width: 70px;
+                height: 70px;
+                // margin-top: 30px;
+                border-radius: 70px;
+                float: right;
+                // margin: 0 auto;
+                clear: both;
+                margin-bottom: 20px;
+                // background-image: url(../img/avatar.png);
+                background-size: cover;
+            }
+            .nick {
+                margin-top: 18px;
+                font-size: 16px;
+                clear: both;
+                text-align: right;
+                // color: #fff;
+                // background-color: #000;
+                width: auto;
+                // max-width: 100px;
+            }
+            .info-list {
+            	text-align: right;
+            	margin-top: 50px;
+            	.info-item {
+            		margin-top: 10px;
+            	}
+            	.count {
+            		font-size: 18px;
+            		font-style: italic;
+            	}
+            	.name {
+            		font-size: 14px;
+            		margin-left: 5px;
+            		font-style: italic;
+            		color: #ff7800;
+            	}
+            	.icon {
+            		margin-left: 15px;
+            		font-size: 14px;
+            		color: #aaa;
+            	}
+            }
+            .write {
+            	margin-top: 50px;
+            	width: 100%;
+            	font-size: 18px;
+            	cursor: pointer;
+            	color: #aaa;
+            	&:hover {
+            		color: #888;
+            	}
+            	.icon {
+            		margin-right: 10px;
+            	}
+            }
+            .menu {
+            	margin-top: 50px;
+            	.menu-item {
+            		width: 100%;
+            		margin-bottom: 20px;
+            		.icon {
+            			margin-right: 10px;
+            			font-size: 18px;
+            		}
+            	}
+            	.menu-item.recommend {
+        			margin-bottom: 0;
+        		}
+            }
+		}
+	}
+
+    .toolbar {
+        padding: 30px;
+        position: absolute;
+        // margin-left: -100px;
+        .avatar {
+            width: 67px;
+            height: 67px;
+            border-radius: 67px;
+            // background: url(../img/avatar.png) no-repeat;
+        }
+    }
+
+    .right {
+        .intro {
+            font-size: 24px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: bold;
+            color: #555;
+        }
+        .main {
+            overflow: auto;
+            .nocontent {
+                padding-top: 40px;
+                text-align: center;
+                margin: 0 auto;
+                color: #ccc;
+                font-size: 18px;
+                .icon {
+                    color: #ddd;
+                    display: block;
+                    font-size: 32px;
+                    margin-bottom: 7px;
+                }
+                div {
+                    &.tip {
+                        margin-top: 30px;
+                        font-style: italic;
+                    }
+                }
+            }
+        }
+        .user {
+            position: fixed;
+            margin-left: -270px;
+            width: 150px;
+            border-right: 1px #ccc dashed;
+            padding: 10px 20px 10px 0;
+            .avatar {
+                width: 70px;
+                height: 70px;
+                border-radius: 70px;
+                // background: url(../img/avatar.png) no-repeat;
+                border: 1px #eee solid;
+                cursor: pointer;
+                float: right;
+            }
+            .nick {
+                text-align: right;
+                width: 100%;
+                display: inline-block;
+                margin-top: 20px;
+                font-size: 18px;
+                // font-weight: bold;
+            }
+            .motto {
+                margin-top: 15px;
+                color: #aaa;
+                width: 100%;
+                text-align: right;
+                line-height: 22px;
+                display: inline-block;
+                font-size: 14px;
+            }
+        }
+        .tool {
+            font-size: 18px;
+            display: inline-block;
+            margin-bottom: 80px;
+            width: 100%;
+            // float: left;
+            margin-top: 10px;
+            margin-right: 60px;
+            font-size: 16px;
+            .item {
+                padding: 5px 15px;
+                margin-right: 15px;
+                color: #333;
+                float: left;
+                cursor: pointer;
+                i {
+                    float: left;
+                    margin-top: 1px;
+                    margin-right: 7px;
+                }
+                .name {
+                    float: left;
+                }
+                &.selected {
+                    background-color: #333;
+                    color: #fff;
+                    .count {
+                        opacity: 0.7;
+                    }
+                }
+                &[data-id="setting"] {
+                    float: right;
+                    margin-right: 0;
+                }
+                &[data-id="circle"] {
+                    float: right;
+                    // margin-right: 0;
+                }
+                .icon-book-open {
+                    display: block;
+                    float: left;
+                    margin-top: 1px;
+                    margin-right: 10px;
+                }
+                .count {
+                    font-size: 12px;
+                    margin-left: 10px;
+                    margin-top: 3px;
+                    opacity: 0.5;
+                    float: right;
+                    display: none;
+                }
+            }
+        }
+        // margin-left: 230px;
+        padding-top: 80px;
+        margin: 0 auto;
+        color: #444;
+        width: 664px;
+        position: relative;
+        .logo {
+            transition-property: opacity;
+            transition-duration: 1s;
+            transition-timing-function: ease-out;
+            background-image: url(../img/inkpaper.png);
+            background-size: cover;
+            width: 161px;
+            height: 109px;
+            // float: right;
+            margin: 0 auto;
+            clear: both;
+            margin-bottom: 80px;
+        }
+        .title {
+            font-size: 20px;
+            .icon {
+                margin-right: 10px;
+            }
+        }
+        .article-list {
+            // display: none;
+            margin-top: 0px;
+            // margin-bottom: 120px;
+            overflow: auto;
+            .article-item {
+                // width: 670px;
+                // padding: 0 80px 0 80px;
+                // margin-left: -80px;
+                transition-property: opacity;
+                transition-duration: 0.2s;
+                transition-timing-function: ease-out;
+                // margin-top: 50px;
+                margin-bottom: 60px;
+                overflow: visible;
+                cursor: pointer;
+                &:hover {
+                    // opacity: 0.8;
+                    .title {
+                        color: #666;
+                    }
+                    .tool {
+                        opacity: 1;
+                    }
+                }
+                .info {
+                    position: absolute;
+                    margin-top: 57px;
+                    margin-bottom: 10px;
+                    margin-left: -100px;
+                    span {
+                        text-align: right;
+                        display: block;
+                        font-style: italic;
+                        color: #ccc;
+                    }
+                    label {
+                        font-size: 16px;
+                    }
+                    .num {
+                        font-size: 24px;
+                    }
+                    .status {
+                        display: block;
+                        margin-top: 5px;
+                        font-size: 14px;
+                    }
+                }
+                .tool {
+                    // display: none;
+                    transition-property: opacity;
+                    transition-duration: 0.1s;
+                    transition-timing-function: ease-out;
+                    position: absolute;
+                    margin-top: 26px;
+                    margin-bottom: 10px;
+                    opacity: 0;
+                    margin-left: -60px;
+                    width: 70px;
+                    // padding-left: 40px;
+                    li {
+                        font-size: 16px;
+                        color: #000;
+                        width: 35px;
+                        height: 35px;
+                        line-height: 39px;
+                        text-align: center;
+                        background-color: #fff;
+                        margin-bottom: 10px;
+                        border-radius: 35px;
+                        border: 1px solid #ddd;
+                        cursor: pointer;
+                        &:hover {
+                            color: #fff;
+                            background-color: #000;
+                        }
+                        &:hover a {
+                            color: #fff;
+                        }
+                    }
+                }
+                .update-value {
+                    position: absolute;
+                    margin-top: 76px;
+                    margin-bottom: 10px;
+                    opacity: 1;
+                    margin-left: -110px;
+                    color: #ccc;
+                    font-style: italic;
+                    font-size: 24px;
+                    .update {
+                        font-size: 14px;
+                        margin-left: 5px;
+                    }
+                }
+                // .checkbox {
+                //     font-size: 16px;
+                //     color: #000;
+                //     width: 35px;
+                //     height: 35px;
+                //     line-height: 39px;
+                //     text-align: center;
+                //     background-color: #fff;
+                //     margin-bottom: 10px;
+                //     border-radius: 35px;
+                //     border: 1px solid #ddd;
+                //     cursor: pointer;
+                //     span {
+                //         width: 20px;
+                //         height: 20px;
+                //         display: block;
+                //         border-radius: 20px;
+                //         margin: 0 auto;
+                //         margin-top: 8px;
+                //         background-color: #aaa;
+                //     }
+                //     &:hover {
+                //         color: #fff;
+                //         background-color: #000;
+                //     }
+                // }
+                &:last-child {
+                    border-bottom: 0;
+                }
+                .card {
+                    width: 100%;
+                }
+                .thematic {
+                    color: #fff;
+                    width: 100%;
+                    height: 250px;
+                    // display: inline-block;
+                    // background-image: url(../img/artwork_shinkai_makoto_the_garden_of_words_1920x1080_76228.jpg);
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    border-radius: 6px;
+                    border: 1px solid #ddd;
+                    box-sizing:border-box;
+                    .gradient {
+                        border-radius: 7px;
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+                .title {
+                    font-weight: bold;
+                    font-size: 24px;
+                    margin-bottom: 10px;
+                    margin-top: 20px;
+                }
+                .preview {
+                    display: inline-block;
+                    letter-spacing: 0.5px;
+                    line-height: 26px;
+                    font-size: 14px;
+                    padding: 5px 0 5px 0;
+                    // padding-top: 0;
+                    color: #777;
+                    // height: 20px;
+                    // text-overflow: ellipsis;
+                    // overflow: hidden;
+                    // text-indent: 30px;
+                }
+                .footer {
+                    cursor: default ;
+                    clear: both;
+                    height: 40px;
+                    width: 100%;
+                    display: inline-block;
+                    margin: 0;
+                    margin-top: 10px;
+                    margin-bottom: 20px;
+                    color: #333;
+                    font-size: 14px;
+                    // float: left;
+                    .item {
+                        margin-right: 15px;
+                        float: left;
+                    }
+                    .icon {
+                        margin-right: 6px;
+                        // margin-top: 1px;
+                        float: left;
+                    }
+                    .user-link {
+                        color: #333;
+                        &:hover {
+                            opacity: 0.8;
+                        }
+                    }
+                    .author {
+                        float: left;
+                        font-size: 14px;
+                        // margin-top: 10px;
+                        // color: #888;
+                        line-height: 24px;
+                        .user-link {
+                            float: left;
+                            margin-right: 15px;
+                        }
+                        .avatar {
+                            width: 20px;
+                            height: 20px;
+                            margin-right: 10px;
+                            border-radius: 20px;
+                            background-size: cover;
+                            background-image: url(../img/avatar.png);
+                            background-repeat: no-repeat;
+                            float: left;
+                        }
+                        .updated, .circle {
+                            color: #aaa;
+                        }
+                    }
+                    .detail {
+                        float: right;
+                    }
+                    .read {
+                        float: right;
+                        font-style: italic;
+                        cursor: pointer;
+                        &:hover {
+                            color: #666;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

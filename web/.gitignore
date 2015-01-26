@@ -1,0 +1,6 @@
+node_modules
+release
+src/**/*.js
+!src/js/vender/**/*.js
+src/**/*.css
+!src/js/vender/**/*.css

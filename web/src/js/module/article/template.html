@@ -1,0 +1,35 @@
+<!-- page -->
+
+<a class="home-link" href="/#main"></a>
+<div class="article">
+    <div class="author">
+        <img class="avatar" src="{{user.avatar}}" />
+        <div class="nick">{{user.nick}}</div>
+        <div class="motto">{{user.motto}}</div>
+    </div>
+    <div class="title">{{article.title}}</div>
+    <div class="info">
+        <i class="icon-book-open"></i>
+        <span class="item">{{article.updated}}</span>
+        <span class="item">发表于{{article.circle}}</span>
+        <span class="item">{{article.count}}字</span>
+        <!-- <span class="item">32阅读</span> -->
+    </div>
+    <div class="content">{{{article.content}}}</div>
+</div>
+<div class="info fin">
+    <i class="icon-book-open"></i><span class="item">结束</span>
+</div>
+<div class="meta">
+    <a class="author" href="/#user/{{user.name}}">
+        <img class="avatar" src="{{user.avatar}}" />
+        <div class="author-info">
+            <div class="nick">{{user.nick}}</div>
+            <div class="motto">{{user.motto}}</div>
+        </div>
+    </a>
+    <div class="tool">
+        <i class="icon like icon-font-heart{{#unless like}}-empty{{/unless}}"></i>
+        <i class="icon favarite icon-font-star{{#unless favarite}}-empty{{/unless}}"></i>
+    </div>
+</div>

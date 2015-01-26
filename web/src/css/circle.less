@@ -1,0 +1,100 @@
+#main .circle {
+    .circle-list {
+        // margin-top: 60px;
+        // display: none;
+        // color: #333;
+        // margin-bottom: 200px;
+        overflow: auto;
+        margin-left: -112px;
+        .circle-item {
+
+            width: 250px;
+            float: left;
+            cursor: pointer;
+            /* border-radius: 5px; */
+            /* margin-right: 90px; */
+            margin-bottom: 100px;
+            margin-left: 130px;
+            &:hover {
+                color: #000;
+                .info .focus {
+                    border: 2px #ccc solid;
+                    .icon {
+                        color: #ccc;
+                    }
+                }
+            }
+            border-radius: 5px;
+            // margin-right: 75px;
+            margin-bottom: 50px;
+            &.focused .info .focus {
+                border: 2px #999 solid;
+                .icon {
+                    color: #999;
+                }
+            }
+            .info {
+                position: relative;
+                .icon {
+                    float: left;
+                    font-size: 22px;
+                    margin-right: 15px;
+                }
+                .name {
+                    font-size: 20px;
+                }
+                .focus {
+                    position: absolute;
+                    right: 0px;
+                    top: 14px;
+                    border: 2px #eee solid;
+                    width: 26px;
+                    height: 26px;
+                    border-radius: 26px;
+                    cursor: pointer;
+                    transition-property: border;
+                    transition-duration: 0.1s;
+                    transition-timing-function: ease-out;
+                    .icon {
+                        transition-property: color;
+                        transition-duration: 0.1s;
+                        transition-timing-function: ease-out;
+                        font-size: 16px;
+                        padding-top: 5px;
+                        padding-left: 2px;
+                        color: #eee;
+                    }
+                }
+                .article-num {
+                    float: right;
+                    margin-top: -16px;
+                    font-size: 14px;
+                    color: #bbb;
+                    font-style: italic;
+                    .num {
+                        // color: #ff7800;
+                        font-weight: bold;
+                        margin-left: 5px;
+                    }
+                }
+                .focus-num {
+                    float: right;
+                    margin-top: -47px;
+                    font-size: 14px;
+                    color: #bbb;
+                    font-style: italic;
+                    .num {
+                        // color: #ff7800;
+                        font-weight: bold;
+                        margin-left: 5px;
+                    }
+                }
+                .description {
+                    margin-top: 12px;
+                    font-size: 14px;
+                    color: #aaa;
+                }
+            }
+        }
+    }
+}

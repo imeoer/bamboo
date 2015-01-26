@@ -1,0 +1,269 @@
+// editor
+
+#edit {
+	.article {
+		height: 100%;
+		position: relative;
+		margin-bottom: 300px;
+		.edit-view {
+			// display: none;
+			transition-property: opacity;
+			transition-duration: 0.1s;
+			transition-timing-function: ease-out;
+			position: fixed;
+			margin-top: 7px;
+			opacity: 0;
+			margin-left: 664px;
+			padding-left: 40px;
+			&:hover {
+				opacity: 1 !important;
+			}
+			li {
+				font-size: 16px;
+				color: #000;
+				// padding: 6px;
+				width: 35px;
+				height: 35px;
+				line-height: 39px;
+				text-align: center;
+				// background-color: #fff;
+				margin-bottom: 10px;
+				border: 1px solid transparent;
+				border-radius: 35px;
+				&.active {
+					border: 1px solid #c1c1c1;
+					background-color: #ebebeb;
+					box-shadow: 0 0 3px rgba(0,0,0,.1) inset;
+					&:hover {
+						border: 1px solid #c1c1c1;
+					}
+				}
+				&:hover {
+					border: 1px solid #ddd;
+				}
+			}
+		}
+		&:hover {
+			.edit-view {
+				opacity: 0.3;
+			}
+		}
+	}
+	.tool {
+		// opacity: 0.5;
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		padding: 40px;
+		font-size: 18px;
+		.home {
+			font-size: 28px;
+			float: left;
+			margin-top: 5px;
+			margin-right: 40px;
+		}
+		.type {
+			float: left;
+			margin-top: 10px;
+			margin-right: 60px;
+			font-size: 16px;
+			span {
+				cursor: pointer;
+				padding: 5px 17px;
+				margin-left: 10px;
+				color: #333;
+				&.selected {
+					background-color: #333;
+					color: #fff;
+				}
+			}
+		}
+		.publish {
+			padding: 5px 14px;
+			background-color: #333;
+			color: #fff;
+			border-radius: 3px;
+			border: 2px solid #666;
+			float: right;
+			.icon-book-open {
+				display: block;
+				float: left;
+				margin-top: 1px;
+				margin-right: 10px;
+			}
+			&:hover {
+				background-color: #111;
+			}
+		}
+	}
+	.contenteditable.title:empty {
+		line-height: 38px;
+		padding-top: 14px;
+		&:before {
+			content: "键入文章标题";
+	        color: #ccc;
+	        font-style: italic;
+	        cursor: text;
+		}
+	}
+	.contenteditable.content:empty {
+		line-height: 18px;
+		padding-top: 5px;
+		&:before {
+			content: "键入正文...";
+	        color: #ccc;
+	        font-style: italic;
+	        cursor: text;
+		}
+	}
+	.toolbar {
+		position: absolute;
+		border: 2px #bbb solid;
+		width: 40px;
+		height: 40px;
+		border-radius: 40px;
+		background-color: #eee;
+		top: 0;
+		display: none;
+		opacity: 0.3;
+		transition-property: top, opacity;
+		transition-duration: 0.1s;
+		transition-timing-function: ease-out;
+		font-size: 34px;
+		color: #999;
+		text-align: center;
+		&:hover {
+			opacity: 1;
+			.type-list {
+				display: block;
+			}
+		}
+		.type-list {
+			display: none;
+			padding-top: 20px;
+			color: #000;
+			font-size: 16px;
+			font-style: normal;
+			.type {
+				input.image-upload {
+					opacity: 0;
+					width: 36px;
+					display: block;
+					height: 36px;
+					position: absolute;
+					top: -6px;
+					left: -11px;
+					// cursor: pointer;
+					z-index: 1;
+				}
+				&.image {
+					cursor: pointer;
+				}
+				line-height: 39px;
+				margin: 0 auto;
+				width: 35px;
+				height: 35px;
+				margin-bottom: 10px;
+				background-color: #000;
+				color: #fff;
+				// padding: 15px;
+				border-radius: 35px;
+				border: 2px transparent solid;
+				position: relative;
+				.input-wrap {
+					display: none;
+					position: absolute;
+					padding-left: 50px;
+					margin-top: -2px;
+					top: 0;
+				}
+				input {
+					width: 350px;
+					height: 20px;
+					padding: 4px 10px;
+					border: 1px #ddd solid;
+					border-radius: 20px;
+				}
+				&:hover {
+					color: #000;
+					background-color: #fff;
+					border: 2px #333 solid;
+					.input-wrap {
+						display: block;
+					}
+				}
+				i.code-icon {
+					font-style: normal;
+					font-size: 12px;
+					font-weight: bold;
+					line-height: 35px !important;
+				}
+			}
+		}
+	}
+	img {
+		cursor: default;
+		&:hover {
+			border: 1px #ddd solid !important;
+		}
+	}
+	.content {
+		.uploading {
+			position: relative;
+			.progress {
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				height: 0;
+				z-index: 1;
+				top: 0;
+				background-color: #fff;
+				opacity: 0.7;
+				transition-property: height;
+				transition-duration: 0.2s;
+				transition-timing-function: ease-out;
+			}
+		}
+		img {
+			&.selected {
+				border: 2px #aaa solid !important;
+			}
+			&::selection {
+				background: rgba(0, 0, 0, 0.1);
+			}
+			&::-moz-selection {
+				background: rgba(0, 0, 0, 0.1);
+			}
+		}
+	}
+	.content.markdown {
+		width: 664px;
+		// height: 300px;
+		border: 0;
+		font-size: 16px;
+		// letter-spacing: 0px;
+		display: none;
+		background-color: transparent;
+		// height: 100%;
+		padding: 0;
+		.placeholder-style {
+			color: #ccc;
+			font-style: italic;
+			cursor: text;
+		}
+		&::-webkit-input-placeholder {
+			.placeholder-style;
+		}
+		&:-moz-placeholder {
+			.placeholder-style;
+		}
+		&::-moz-placeholder {
+			.placeholder-style;
+		}
+		&:-ms-input-placeholder {
+			.placeholder-style;
+		}
+	}
+}

@@ -1,0 +1,46 @@
+<!-- page -->
+
+<div class="header">
+    <div class="logo"></div>
+    {{#if user}}
+    <div class="author">
+        <img class="avatar" src="{{user.avatar}}" />
+        <div class="author-info">
+            <div class="nick">{{user.nick}}</div>
+            <div class="mail">{{user.mail}}</div>
+        </div>
+    </div>
+    {{/if}}
+    <div class="form">
+        <button class="submit"></button>
+        <div class="login {{#if user}}hide{{/if}}">
+            <div class="switch">
+                <i class="icon-github-circled"></i>
+                <div class="btn register-btn">注册</div>
+                <span class="split">/</span>
+                <div class="btn login-btn active">登录</div>
+            </div>
+            <span class="split">/</span><input class="mail-input" placeholder="电子邮箱" spellcheck="false"></input>
+            <span class="split">/</span><input class="pass-input" placeholder="登录密码" type="password"></input>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="cover">
+        <span class="bg-info">Sunny Rain - Pixiv TID (国人画师)</span>
+        <div class="bg-nav">
+            <i class="icon-btn icon-left-open"></i>
+            <i class="icon-btn icon-right-open"></i>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="footer-left">
+        <a href="">@2015 纸小墨</a>
+    </div>
+    <div class="footer-right">
+        <a href="">联系我们</a>
+        <a href="">官方博客</a>
+        <a href="">关于</a>
+    </div>
+</div>

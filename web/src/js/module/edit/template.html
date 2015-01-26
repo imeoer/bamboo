@@ -1,0 +1,46 @@
+<!-- page -->
+
+<div class="tool">
+    <a class="home" href="/#main">
+        <i class="icon-layers"></i><span></span>
+    </a>
+    <div class="publish btn">
+        <i class="icon-book-open"></i><span>发布</span>
+    </div>
+    <div class="type">
+        <span class="private {{#unless article.public}}selected{{/unless}}" data-id="private">私有</span>
+        <span class="public {{#if article.public}}selected{{/if}}" data-id="public">公开</span>
+    </div>
+</div>
+<div class="article">
+    <div class="title contenteditable" contenteditable tabindex="1">{{article.title}}</div>
+    <div class="info">
+        <input placeholder="选择圈子" class="circle-select" value="{{article.circle}}" />
+    </div>
+    <ul class="edit-view">
+        <li class="visual active"><i class="icon-book-open"></i></li>
+        <li class="markdown"><i class="icon-pencil"></i></li>
+    </ul>
+    <div class="content visual contenteditable" contenteditable placeholder="">{{{article.content}}}</div>
+    <div class="content markdown" placeholder="Markdown格式编辑"></div>
+</div>
+<div class="toolbar">+
+    <ul class="type-list">
+        <li class="type image">
+            <i class="icon-picture"></i>
+            <input class="image-upload" type="file" name="files[]" multiple="multiple" title="Click to add Files">
+            <div class="input-wrap"><input class="link image-link" placeholder="单击上传图片或输入图片链接"></input></div>
+        </li>
+        <li class="type music">
+            <i class="icon-music-tone-alt"></i>
+            <div class="input-wrap"><input class="link music-link" placeholder="现支持网易云音乐链接"></input></div>
+        </li>
+        <li class="type vedio">
+            <i class="icon-social-youtube"></i>
+            <div class="input-wrap"><input class="link vedio-link" placeholder="现支持Youtube，Vimeo视频链接"></input></div>
+        </li>
+        <!-- <li class="type code">
+            <i class="code-icon">&lt;/&gt;</i>
+        </li> -->
+    </ul>
+</div>
