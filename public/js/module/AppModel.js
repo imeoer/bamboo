@@ -17,7 +17,7 @@
           return $notify.removeClass('show');
         }, 2000);
       },
-      baseURL: "http://" + location.hostname,
+      baseURL: "http://" + location.hostname + ':8888',
       circles: [
         {
           name: "电影",
